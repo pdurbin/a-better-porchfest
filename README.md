@@ -27,12 +27,20 @@
 
 * Have the schedule show up according to what's in the window.
 
-Clicking on the gig will highlight the marker somehow. Hopefully won't move the map but maybe necessary if it's on the fringes.
+[ ] - Action for clicking on gig in schedule
 
-I think this might cover all the use cases. We could add the usual band bio stuff on top. Or maybe we should think that through ahead as well.
+* Want to handle both "Get band info" and also "Find on map"
+* Proposal: When you click, you get a popup "more about band", "find on map"
+    * If you click "find on map" only then it scrolls to the right place (if necessary) and blinks
+        * We particularly don't want to mess up the map view if the user just clicks on the schedule
+        * Downside: if you scroll (even with the user's explicit expectation) it will change the window-view dynamic schedule. Bad UX probably.
 
-Star gigs. Save to local storage. Show stars for upcoming gigs on map.
+[ ] - "Favorite" a gig
 
-Use case: figure out what if anything is even playing anything. Zoom out. See the colors of the markers.
+* In the schedule view, you click a star to indicate you want to see the show
+    * Save to local storage
+    * Marker becomes a star if the show is imminent
 
-Click on schedule, see "more about band" and "find on map" so it doesn't mess up your map view without you asking. And then it centers only if it's off map or on the fringes. And then it just blinks.
+[ ] - Band info
+
+(think this through...)
