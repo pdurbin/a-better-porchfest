@@ -43,4 +43,4 @@
 
 [ ] - Band info
 
-(think this through...)
+( think this through... )
