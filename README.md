@@ -5,9 +5,9 @@ MIT good?
 # Files
 
 * [index.html](master/index.html) - of course you'll want to "view source" when you get here
-  * Has javascript for now. We could split it out.
+  * Has the main javascript for now. We could split it out.
 
-* [data.js](master/data.js) - of course you'll want to "view source" when you get here
+* [data.js](master/data.js)
   * Contains demo data.
   * I pulled this from the old porchfest website (link below).
 
