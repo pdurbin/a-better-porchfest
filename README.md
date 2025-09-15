@@ -64,6 +64,9 @@ At a high level, what goals do we have, including uses cases?
 * In the schedule view, you click a star to indicate you want to see the show
     * Save to local storage
     * Marker becomes a star if the show is imminent
+    * Danger: If the admins ever change the data, the user may lose a "favorite"
+        * Warn the user?
+        * Warn the admins?
 
 [ ] - Band info
 
