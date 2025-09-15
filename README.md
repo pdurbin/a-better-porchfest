@@ -13,7 +13,7 @@ At a high level, what goals do we have, including uses cases?
 
 # Proposed Features
 
-[ ] - Set time for demo data
+[ ] - For development: Set the time for the demo data
 
 * Use the real current time
 * Change the set times such that the user is in the very middle of Porchfest.
