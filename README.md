@@ -77,5 +77,5 @@ At a high level, what goals do we have, including uses cases?
 
 # Reference
 
-[The old porchfest website](https://web.archive.org/web/20250524170604/https://maldenporchfest.org/map/#schedule) for comparison.
-[FOSDEM's schedule](https://fosdem.org/2025/schedule/mobile/) for comparison
+* [The old porchfest website](https://web.archive.org/web/20250524170604/https://maldenporchfest.org/map/#schedule) for comparison.
+* [FOSDEM's schedule](https://fosdem.org/2025/schedule/mobile/) for comparison
