@@ -1,17 +1,6 @@
-# License
-
-MIT good?
-
-# Files
-
-* [index.html](master/index.html) - of course you'll want to "view source" when you get here
-  * Has the main javascript for now. We could split it out.
-
-* [data.js](master/data.js)
-  * Contains demo data.
-  * I pulled this from the old porchfest website (link below).
-
 # Goals
+
+This project is to make an improved interactive map for [Porchfest](https://en.wikipedia.org/wiki/Porchfest) events. Porches can be far apart. We don't want to spend a ton of time digging through the schedule and optimizing our decisions. We want to be able to pull up the website on our phone and quickly figure out where to go next!
 
 At a high level, what goals do we have, including uses cases?
 
@@ -80,7 +69,20 @@ At a high level, what goals do we have, including uses cases?
 
 ( think this through... )
 
+# Files
+
+* [index.html](master/index.html) - of course you'll want to "view source" when you get here
+  * Has the main javascript for now. We could split it out.
+
+* [data.js](master/data.js)
+  * Contains demo data.
+  * I pulled this from the old porchfest website (link below).
+
 # Reference
 
 * [The old porchfest website](https://web.archive.org/web/20250524170604/https://maldenporchfest.org/map/#schedule) for comparison.
 * [FOSDEM's schedule](https://fosdem.org/2025/schedule/mobile/) for comparison
+
+# License
+
+MIT good?
