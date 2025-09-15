@@ -36,6 +36,11 @@ At a high level, what goals do we have, including uses cases?
     * Idea 1: Yellow=future, Green=imminent, Red=Over
     * Idea 2: Green=future, Bright Green=imminent, Transparent=Over
 
+[ ] - Color-coding by genre
+
+* Markers?
+* Schedule?
+
 [ ] - Toggle full schedule / window view schedule
 
 [ ] - Time slider
