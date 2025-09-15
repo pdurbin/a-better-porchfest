@@ -4,10 +4,10 @@ MIT good?
 
 # Files
 
-* [index.html](index.html) - of course you'll want to "view source" when you get here
+* [index.html](master/index.html) - of course you'll want to "view source" when you get here
   * Has javascript for now. We could split it out.
 
-* [data.js](data.js) - of course you'll want to "view source" when you get here
+* [data.js](master/data.js) - of course you'll want to "view source" when you get here
   * Contains demo data.
   * I pulled this from the old porchfest website (link below).
 
