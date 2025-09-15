@@ -1,3 +1,7 @@
+# License
+
+MIT good?
+
 # Files
 
 * [index.html](index.html) - of course you'll want to "view source" when you get here
