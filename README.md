@@ -1,7 +1,11 @@
-# Reference
+# Files
 
-[The old porchfest website](https://web.archive.org/web/20250524170604/https://maldenporchfest.org/map/#schedule) for comparison.
-[FOSDEM's schedule](https://fosdem.org/2025/schedule/mobile/) for comparison
+* [index.html](index.html) - of course you'll want to "view source" when you get here
+  * Has javascript for now. We could split it out.
+
+* [data.js](data.js) - of course you'll want to "view source" when you get here
+  * Contains demo data.
+  * I pulled this from the old porchfest website (link below).
 
 # Proposed Features
 
@@ -49,3 +53,8 @@
 [ ] - Band info
 
 ( think this through... )
+
+# Reference
+
+[The old porchfest website](https://web.archive.org/web/20250524170604/https://maldenporchfest.org/map/#schedule) for comparison.
+[FOSDEM's schedule](https://fosdem.org/2025/schedule/mobile/) for comparison
