@@ -1,6 +1,6 @@
 # Goals
 
-This project is to make an improved interactive map for [Porchfest](https://en.wikipedia.org/wiki/Porchfest) events. Porches can be far apart. We don't want to spend a ton of time digging through the schedule and optimizing our decisions. We want to be able to pull up the website on our phone and quickly figure out where to go next!
+The goal of this project is to make an improved interactive map for [Porchfest](https://en.wikipedia.org/wiki/Porchfest) events. Porches can be far apart. We don't want to spend a ton of time digging through the schedule and optimizing our decisions. We want to be able to pull up the website on our phone and quickly figure out where to go next!
 
 At a high level, what goals do we have, including uses cases?
 
