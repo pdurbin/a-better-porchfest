@@ -11,6 +11,17 @@ MIT good?
   * Contains demo data.
   * I pulled this from the old porchfest website (link below).
 
+# Goals
+
+At a high level, what goals do we have, including uses cases?
+
+* Playing next?
+* Playing near me?
+* Band list view.
+* Bands near me!
+* Keep it simple and snappy for all users!
+* Mobile first!
+
 # Proposed Features
 
 [ ] - Set time for demo data
@@ -47,6 +58,12 @@ MIT good?
     * If you click "find on map" only then it scrolls to the right place (if necessary) and blinks
         * We particularly don't want to mess up the map view if the user just clicks on the schedule
         * Downside: if you scroll (even with the user's explicit expectation) it will change the window-view dynamic schedule. Bad UX probably.
+
+[ ] - Action for clicking on marker
+
+* Show address
+* Show schedule at that location?
+* Ideas...
 
 [ ] - "Favorite" a gig
 
