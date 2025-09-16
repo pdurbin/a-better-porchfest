@@ -70,6 +70,11 @@ At a high level, what goals do we have, including uses cases?
 
 [ ] - Band info
 
+[ ] - Indicate genre by shape of marker
+
+* This may not be necessary if we use colors for genre
+    * Idea 1: Circle=Rock, Square=Alternative, Triangle=Hip-Hop, etc.
+
 ( think this through... )
 
 # Files
