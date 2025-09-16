@@ -70,6 +70,11 @@ At a high level, what goals do we have, including uses cases?
 
 [ ] - Band info
 
+[ ] - Filters
+
+* "I'm only interested in folk music", for example
+* "I'm only interested in music from 2pm-4pm", for example
+
 [ ] - Indicate genre by shape of marker
 
 * This may not be necessary if we use colors for genre
