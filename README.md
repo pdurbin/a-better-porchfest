@@ -30,8 +30,6 @@ At a high level, what goals do we have, including uses cases?
 * Markers?
 * Schedule?
 
-[ ] - Toggle full schedule / window view schedule
-
 [ ] - Time slider
 
 * The schedule has a marker for "now" so that the user knows where in the schedule they are.
@@ -44,6 +42,8 @@ At a high level, what goals do we have, including uses cases?
 [ ] - Show schedule based on visible markers
 
 * Have the schedule show up according to what's in the window.
+    * Toggle full schedule / window view schedule
+* Alt idea - instead of hiding items, just grey them out. That way it's one view.
 
 [ ] - Action for clicking on gig in schedule
 
