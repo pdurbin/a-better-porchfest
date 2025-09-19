@@ -13,11 +13,20 @@ At a high level, what goals do we have, including uses cases?
 
 # Proposed Features
 
-[ ] - For development: Set the time for the demo data
+## Demo Data (for development)
+
+[ ] - Set the time for the demo data
 
 * Use the real current time
 * Change the set times such that the user is in the very middle of Porchfest.
 * Quantize events to a half hour for realism.
+
+[ ] - Import Brookline data
+
+* [KML file](https://osdc.zulipchat.com/user_uploads/56571/DyPRiIUIU0yvHf69cf1vQJBn/brookline.kml)
+* [Website to see how it looks](https://www.brooklineporchfest.org/)
+
+## Other
 
 [ ] - Color code markers
 
