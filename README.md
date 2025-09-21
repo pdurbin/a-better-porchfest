@@ -108,3 +108,13 @@ At a high level, what goals do we have, including uses cases?
 # License
 
 MIT good?
+
+# Contributing
+
+```
+git clone dev@66.228.40.225:~/a-better-porchfest
+```
+
+    git clone dev@66.228.40.225:~/a-better-porchfest
+
+`git clone dev@66.228.40.225:~/a-better-porchfest`
