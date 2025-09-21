@@ -60,7 +60,7 @@
 
         // add a new div for this gig
         gigsText = gigsText + (
-            "<div>" + gig.starthour + ":" +gig.startminute + " - " + band.actname + "</div>"
+            "<div>" + gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + " - " + band.actname + "</div>"
         )
     }
     document.getElementById('gigs').innerHTML = gigsText
