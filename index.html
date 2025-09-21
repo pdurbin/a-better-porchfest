@@ -56,6 +56,7 @@
     <script src="data.js"></script>
     <script>
       const map = L.map('map').setView([42.429752, -71.071022], 14)
+      const markersByPorchId = {};
 
       L.maplibreGL({
         style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -64,11 +65,13 @@
       function gigStartTime(gig) {
         // I think it will default to "today"
         const now = new Date()
-        return new Date(now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate() + " " + gig.starthour + ":" + gig.startminute)
+        const offset = 60 * 60 * 1000 * 3 // Pretend Porchfest started 3 hours later than it did. We'll make this dynamic later.
+        const originalTime = new Date(now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + gig.starthour + ":" + gig.startminute)
+        return new Date(originalTime.getTime() + offset)
       }
       function gigEndTime(gig) {
         MS_PER_MINUTE = 60 * 1000
-        return Date(gigStartTime(gig) + gig.duration * MS_PER_MINUTE)
+        return new Date(gigStartTime(gig).getTime() + gig.duration * MS_PER_MINUTE)
       }
       function porchInView(porch, viewBounds) {
         return (
@@ -84,6 +87,43 @@
       const sortedGigIds = Object.keys(gigs).sort((a, b) => {
         return gigStartTime(gigs[a]) - gigStartTime(gigs[b]);
       });
+
+      function update() {
+        resetGigs()
+        resetMarkers()
+      }
+
+      function addMarkers() {
+        for (porchid in porches) {
+          const porch = porches[porchid]
+
+          // Creating a marker
+          var marker = new L.Marker([porch.lat, porch.lng]);
+
+          var popup = L.popup()
+            .setContent(porch.address);
+
+          marker.bindPopup(popup).openPopup();
+
+          // Adding marker to the map
+          marker.addTo(map)
+          markersByPorchId[porchid] = marker
+        }
+      }
+
+      function resetMarkers() {
+        const now = new Date();
+        for (porchid in porches) {
+          remainingGigsForPorch = Object.values(gigs).filter(gig => {
+            return gigEndTime(gig) < now && gig.porchid === porchid
+          })
+          if (remainingGigsForPorch.length) {
+            markersByPorchId[porchid].setOpacity(1)
+          } else {
+            markersByPorchId[porchid].setOpacity(0.3)
+          }
+        }
+      }
 
       function resetGigs() {
         const viewBounds = map.getBounds()
@@ -178,25 +218,12 @@
         document.addEventListener('keydown', onEsc, true);
       };
 
+      addMarkers()
+
       // reset gigs now, on map move, and on map zoom
-      resetGigs()
-      map.on('moveend', resetGigs)
-      map.on('zoomend', resetGigs)
-
-      for (porchid in porches) {
-        const porch = porches[porchid]
-
-        // Creating a marker
-        var marker = new L.Marker([porch.lat, porch.lng]);
-
-        var popup = L.popup()
-        .setContent(porch.address);
-
-        marker.bindPopup(popup).openPopup();
-
-        // Adding marker to the map
-        marker.addTo(map)
-      }
+      update()
+      map.on('moveend', update)
+      map.on('zoomend', update)
     </script>
   </body>
 </html>
