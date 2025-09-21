@@ -51,7 +51,11 @@
     }
     document.getElementById('gigs').innerHTML = gigsText
   }
+
+  // reset gigs now, on map move, and on map zoom
   resetGigs()
+  map.on('moveend', resetGigs)
+  map.on('zoomend', resetGigs)
 
   for (porchid in porches) {
       const porch = porches[porchid]
