@@ -22,6 +22,15 @@
     style: 'https://tiles.openfreemap.org/styles/liberty',
   }).addTo(map)
 
+  function gigStartTime(gig) {
+    // I think it will default to "today"
+    return Date(gig.starthour + ":" + gig.startminute)
+  }
+  function gigEndTime(gig) {
+    MS_PER_MINUTE = 60 * 1000
+    return Date(gigStartTime(gig) + gig.duration * MS_PER_MINUTE)
+  }
+
   gigsText = ""
   for (gigid in gigs) {
       // for this gig...
