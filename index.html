@@ -40,6 +40,8 @@
       )
   }
 
+  const anchor = {'starthour':Date.now().hour, 'startminute':Date.now().minute, 'bandid':null}
+  gigs['now_anchor'] = anchor
   const sortedGigIds = Object.keys(gigs).sort((a, b) => {
     return gigStartTime(gigs[a]) - gigStartTime(gigs[b]);
   });
@@ -47,9 +49,15 @@
   function resetGigs() {
     const viewBounds = map.getBounds()
     let gigsText = "";
+    const now = Date.now();
+
     for (const gigid of sortedGigIds) {
         // for this gig...
         const gig = gigs[gigid]
+        if (gig.bandid === null) {
+            gigsText = gigsText + "<div id=\"id_now_anchor\"> </div>";
+            continue;
+        }
         const band = bands[gig.bandid]
         const porch = porches[gig.porchid]
 
@@ -64,6 +72,7 @@
         )
     }
     document.getElementById('gigs').innerHTML = gigsText
+    document.getElementById('id_now_anchor').scrollIntoView();
   }
 
   // reset gigs now, on map move, and on map zoom
