@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Gig Listings</title>
+
 <!-- Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -8,6 +14,39 @@
 
 <!-- Maplibre GL Leaflet  -->
 <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
+
+<style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .gig-entry {
+      position: relative; /* anchor for overlay */
+      margin: 6px 0;
+    }
+    .gig-entry a { text-decoration: underline; cursor: pointer; }
+    .band-overlay {
+      position: absolute;
+      top: 100%;      /* sit below the link */
+      left: 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px 12px;
+      min-width: 260px;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 8px;
+    }
+    .band-overlay h3 {
+      margin: 0 0 6px 0;
+      font-size: 16px;
+    }
+    .band-overlay .meta {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 8px;
+    }
+    .band-overlay .links a { margin-right: 10px; font-size: 13px; }
+  </style>
+</head>
+<body>
 
 <!-- Map -->
 <div id="map" style="width: 100%; height: 500px"></div>
@@ -68,9 +107,9 @@
         }
 
         gigsText += `
-          <div>
+          <div class="gig-entry">
           ${gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} -
-          <a href="#" onclick="showBandInfo('${gig.bandid}'); return false;">
+          <a href="#" onclick="showBandInfo(this, '${gig.bandid}'); return false;">
           ${band.actname}
           </a>
           </div>
@@ -79,25 +118,67 @@
     document.getElementById('gigs').innerHTML = gigsText;
   }
 
-  window.showBandInfo = function (bandid) {
-    console.log('[showBandInfo] id:', bandid);
-    const band = bands[bandid];
-    console.log('[showBandInfo] band:', band);
 
-    const box = document.getElementById('bandDetails');
-    if (!box) {
-      console.warn('bandDetails container not found');
-      return;
+    // --- Render band info into HTML (basic formatting) ---
+    function renderBandInfo(band) {
+      // helper to hide empty fields
+      const n = (v) => v == null ? "" : String(v).trim();
+      const links = [];
+      if (n(band.website))   links.push(`<a href="${band.website}" target="_blank" rel="noopener">Website</a>`);
+      if (n(band.facebook))  links.push(`<a href="${band.facebook}" target="_blank" rel="noopener">Facebook</a>`);
+      if (n(band.instagram)) links.push(`<a href="${band.instagram}" target="_blank" rel="noopener">Instagram</a>`);
+      if (n(band.bandcamp))  links.push(`<a href="${band.bandcamp}" target="_blank" rel="noopener">Bandcamp</a>`);
+      if (n(band.spotify))   links.push(`<a href="${band.spotify}" target="_blank" rel="noopener">Spotify</a>`);
+      if (n(band.apple))     links.push(`<a href="${band.apple}" target="_blank" rel="noopener">Apple Music</a>`);
+      if (n(band.otheronline)) links.push(`<a href="${band.otheronline}" target="_blank" rel="noopener">More</a>`);
+
+      return `
+        <h3>${band.actname}</h3>
+        <div class="meta">
+          <strong>Genre:</strong> ${n(band.genre) || (n(band.other_genre) ? n(band.other_genre) : "—")}
+        </div>
+        ${n(band.description) ? `<div class="desc">${band.description}</div>` : ""}
+        ${links.length ? `<div class="links" style="margin-top:8px;">${links.join(" ")}</div>` : ""}
+      `;
     }
 
-    if (!band) {
-      box.innerHTML = `<p style="color:red">Band not found for id: <code>${bandid}</code></p>`;
-      return;
-    }
+    // --- Overlay behavior: show under clicked link ---
+    window.showBandInfo = function(linkEl, bandid) {
+      const band = bands[bandid];
 
-    // placeholder for now
-    box.innerHTML = `<p>Clicked on <strong>${band.actname}</strong></p>`;
-  };
+      // Remove any existing overlay
+      document.querySelectorAll('.band-overlay').forEach(el => el.remove());
+
+      // Create overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'band-overlay';
+      overlay.innerHTML = band ? renderBandInfo(band) : `<div style="color:#c00">Band not found</div>`;
+
+      // Insert under this gig row
+      const container = linkEl.closest('.gig-entry');
+      container.appendChild(overlay);
+
+      // Close overlay when clicking outside or pressing Esc
+      const onDocClick = (e) => {
+        if (!overlay.contains(e.target) && e.target !== linkEl) {
+          cleanup();
+        }
+      };
+      const onEsc = (e) => {
+        if (e.key === 'Escape') cleanup();
+      };
+      function cleanup() {
+        overlay.remove();
+        document.removeEventListener('click', onDocClick, true);
+        document.removeEventListener('keydown', onEsc, true);
+      }
+      // Slight delay so the initial click that opened it doesn't immediately close it
+      setTimeout(() => {
+        document.addEventListener('click', onDocClick, true);
+      }, 0);
+      document.addEventListener('keydown', onEsc, true);
+    };
+
 
   // reset gigs now, on map move, and on map zoom
   resetGigs()
@@ -114,3 +195,5 @@
       marker.addTo(map);
   }
 </script>
+</body>
+</html>
