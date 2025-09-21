@@ -111,10 +111,8 @@ MIT good?
 
 # Contributing
 
+First, please get in touch via [Zulip](https://osdc.zulipchat.com/#narrow/stream/406743-boston) or [Signal](https://signal.group/#CjQKIGoh9--iomqNWoG9reLXz9RaAnDC_O1bw1BOk3gZlexUEhDy9Tes9s26HYi_bg5voUBE) and give us the public (not private!) half of your ssh key. Then you can clone the repo like this:
+
 ```
 git clone dev@66.228.40.225:~/a-better-porchfest
 ```
-
-    git clone dev@66.228.40.225:~/a-better-porchfest
-
-`git clone dev@66.228.40.225:~/a-better-porchfest`
