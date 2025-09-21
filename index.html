@@ -36,19 +36,22 @@
     return gigStartTime(gigs[a]) - gigStartTime(gigs[b]);
   });
 
-  gigsText = "";
-  for (const gigid of sortedGigIds) {
-      // for this gig...
-      const gig = gigs[gigid]
-      const band = bands[gig.bandid]
-      const porch = porches[gig.porchid]
+  function resetGigs() {
+    gigsText = "";
+    for (const gigid of sortedGigIds) {
+        // for this gig...
+        const gig = gigs[gigid]
+        const band = bands[gig.bandid]
+        const porch = porches[gig.porchid]
 
-      // add a new div for this gig
-      gigsText = gigsText + (
-          "<div>" + gig.starthour + ":" +gig.startminute + " - " + band.actname + "</div>"
-      )
+        // add a new div for this gig
+        gigsText = gigsText + (
+            "<div>" + gig.starthour + ":" +gig.startminute + " - " + band.actname + "</div>"
+        )
+    }
+    document.getElementById('gigs').innerHTML = gigsText
   }
-  document.getElementById('gigs').innerHTML = gigsText
+  resetGigs()
 
   for (porchid in porches) {
       const porch = porches[porchid]
