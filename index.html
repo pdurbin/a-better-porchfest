@@ -51,16 +51,8 @@
 <!-- Map -->
 <div id="map" style="width: 100%; height: 500px"></div>
 
-<!-- Gig listings -->
-<h2>Gigs</h2>
-<div id="gigs">
+<div id="gigs" style="width: 100%; height: 200px; overflow:scroll;">
 <div>
-
-<!-- Band details placeholder -->
-<h2>Band Info</h2>
-<div id="bandDetails" style="border:1px solid #ccc; padding:10px; min-height:50px;">
-  <!-- Click a band to see info -->
-</div>
 
 <script src="data.js"></script>
 <script>
@@ -88,6 +80,8 @@
       )
   }
 
+  const anchor = {'starthour':Date.now().hour, 'startminute':Date.now().minute, 'bandid':null}
+  gigs['now_anchor'] = anchor
   const sortedGigIds = Object.keys(gigs).sort((a, b) => {
     return gigStartTime(gigs[a]) - gigStartTime(gigs[b]);
   });
@@ -95,9 +89,15 @@
   function resetGigs() {
     const viewBounds = map.getBounds()
     let gigsText = "";
+    const now = Date.now();
+
     for (const gigid of sortedGigIds) {
         // for this gig...
         const gig = gigs[gigid]
+        if (gig.bandid === null) {
+            gigsText = gigsText + "<div id=\"id_now_anchor\"> </div>";
+            continue;
+        }
         const band = bands[gig.bandid]
         const porch = porches[gig.porchid]
 
@@ -116,6 +116,7 @@
           `;
     }
     document.getElementById('gigs').innerHTML = gigsText;
+    document.getElementById('id_now_anchor').scrollIntoView();
   }
 
 
