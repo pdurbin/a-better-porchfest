@@ -24,7 +24,8 @@
 
   function gigStartTime(gig) {
     // I think it will default to "today"
-    return Date(gig.starthour + ":" + gig.startminute)
+    const now = new Date()
+    return new Date(now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate() + " " + gig.starthour + ":" + gig.startminute)
   }
   function gigEndTime(gig) {
     MS_PER_MINUTE = 60 * 1000
