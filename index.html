@@ -192,8 +192,13 @@
       // Creating a marker
       var marker = new L.Marker([porch.lat, porch.lng]);
 
+      var popup = L.popup()
+      .setContent(porch.address);
+
+      marker.bindPopup(popup).openPopup();
+
       // Adding marker to the map
-      marker.addTo(map);
+      marker.addTo(map)
   }
 </script>
 </body>
