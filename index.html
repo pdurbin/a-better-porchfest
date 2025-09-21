@@ -32,8 +32,12 @@
     return Date(gigStartTime(gig) + gig.duration * MS_PER_MINUTE)
   }
 
-  gigsText = ""
-  for (gigid in gigs) {
+  const sortedGigIds = Object.keys(gigs).sort((a, b) => {
+    return gigStartTime(gigs[a]) - gigStartTime(gigs[b]);
+  });
+
+  gigsText = "";
+  for (const gigid of sortedGigIds) {
       // for this gig...
       const gig = gigs[gigid]
       const band = bands[gig.bandid]
