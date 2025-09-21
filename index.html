@@ -31,18 +31,32 @@
     MS_PER_MINUTE = 60 * 1000
     return Date(gigStartTime(gig) + gig.duration * MS_PER_MINUTE)
   }
+  function porchInView(porch, viewBounds) {
+      return (
+        porch.lat > viewBounds.getSouth() &&
+        porch.lat < viewBounds.getNorth() &&
+        porch.lng > viewBounds.getWest() &&
+        porch.lng < viewBounds.getEast()
+      )
+  }
 
   const sortedGigIds = Object.keys(gigs).sort((a, b) => {
     return gigStartTime(gigs[a]) - gigStartTime(gigs[b]);
   });
 
   function resetGigs() {
-    gigsText = "";
+    const viewBounds = map.getBounds()
+    let gigsText = "";
     for (const gigid of sortedGigIds) {
         // for this gig...
         const gig = gigs[gigid]
         const band = bands[gig.bandid]
         const porch = porches[gig.porchid]
+
+        // Only list bands that are in view
+        if (!porchInView(porch, viewBounds)) {
+            continue
+        }
 
         // add a new div for this gig
         gigsText = gigsText + (
