@@ -9,10 +9,19 @@
 <!-- Maplibre GL Leaflet  -->
 <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
 
+<!-- Map -->
 <div id="map" style="width: 100%; height: 500px"></div>
 
+<!-- Gig listings -->
+<h2>Gigs</h2>
 <div id="gigs">
 <div>
+
+<!-- Band details placeholder -->
+<h2>Band Info</h2>
+<div id="bandDetails" style="border:1px solid #ccc; padding:10px; min-height:50px;">
+  <!-- Click a band to see info -->
+</div>
 
 <script src="data.js"></script>
 <script>
@@ -58,13 +67,37 @@
             continue
         }
 
-        // add a new div for this gig
-        gigsText = gigsText + (
-            "<div>" + gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + " - " + band.actname + "</div>"
-        )
+        gigsText += `
+          <div>
+          ${gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} -
+          <a href="#" onclick="showBandInfo('${gig.bandid}'); return false;">
+          ${band.actname}
+          </a>
+          </div>
+          `;
     }
-    document.getElementById('gigs').innerHTML = gigsText
+    document.getElementById('gigs').innerHTML = gigsText;
   }
+
+  window.showBandInfo = function (bandid) {
+    console.log('[showBandInfo] id:', bandid);
+    const band = bands[bandid];
+    console.log('[showBandInfo] band:', band);
+
+    const box = document.getElementById('bandDetails');
+    if (!box) {
+      console.warn('bandDetails container not found');
+      return;
+    }
+
+    if (!band) {
+      box.innerHTML = `<p style="color:red">Band not found for id: <code>${bandid}</code></p>`;
+      return;
+    }
+
+    // placeholder for now
+    box.innerHTML = `<p>Clicked on <strong>${band.actname}</strong></p>`;
+  };
 
   // reset gigs now, on map move, and on map zoom
   resetGigs()
