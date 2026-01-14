@@ -105,10 +105,6 @@ At a high level, what goals do we have, including uses cases?
 * [The old porchfest website](https://web.archive.org/web/20250524170604/https://maldenporchfest.org/map/#schedule) for comparison.
 * [FOSDEM's schedule](https://fosdem.org/2025/schedule/mobile/) for comparison
 
-# License
-
-MIT good?
-
 # Contributing
 
 First, please get in touch via [Zulip](https://osdc.zulipchat.com/#narrow/stream/406743-boston) or [Signal](https://signal.group/#CjQKIGoh9--iomqNWoG9reLXz9RaAnDC_O1bw1BOk3gZlexUEhDy9Tes9s26HYi_bg5voUBE) and give us the public (not private!) half of your ssh key. Then you can clone the repo like this:
