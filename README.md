@@ -15,31 +15,31 @@ At a high level, what goals do we have, including uses cases?
 
 ## Demo Data (for development)
 
-[ ] - Set the time for the demo data
+- [ ] Set the time for the demo data
 
 * Use the real current time
 * Change the set times such that the user is in the very middle of Porchfest.
 * Quantize events to a half hour for realism.
 
-[ ] - Import Brookline data
+- [ ] Import Brookline data
 
 * [KML file](https://osdc.zulipchat.com/user_uploads/56571/DyPRiIUIU0yvHf69cf1vQJBn/brookline.kml)
 * [Website to see how it looks](https://www.brooklineporchfest.org/)
 
 ## Other
 
-[ ] - Color code markers
+- [ ] Color code markers
 
 * One colors for "shows in the future", "show imminent/just starting", "shows over for the day"
     * Idea 1: Yellow=future, Green=imminent, Red=Over
     * Idea 2: Green=future, Bright Green=imminent, Transparent=Over
 
-[ ] - Color-coding by genre
+- [ ] Color-coding by genre
 
 * Markers?
 * Schedule?
 
-[ ] - Time slider
+- [ ] Time slider
 
 * The schedule has a marker for "now" so that the user knows where in the schedule they are.
 * Let the user change the slider, which will change the colors of the markers
@@ -48,13 +48,13 @@ At a high level, what goals do we have, including uses cases?
     * Otherwise a switch
         * Downside: Too many moving parts!
 
-[ ] - Show schedule based on visible markers
+- [ ] Show schedule based on visible markers
 
 * Have the schedule show up according to what's in the window.
     * Toggle full schedule / window view schedule
 * Alt idea - instead of hiding items, just grey them out. That way it's one view.
 
-[ ] - Action for clicking on gig in schedule
+- [ ] Action for clicking on gig in schedule
 
 * Want to handle both "Get band info" and also "Find on map"
 * Proposal: When you click, you get a popup "more about band", "find on map"
@@ -62,13 +62,13 @@ At a high level, what goals do we have, including uses cases?
         * We particularly don't want to mess up the map view if the user just clicks on the schedule
         * Downside: if you scroll (even with the user's explicit expectation) it will change the window-view dynamic schedule. Bad UX probably.
 
-[ ] - Action for clicking on marker
+- [ ] Action for clicking on marker
 
 * Show address
 * Show schedule at that location?
 * Ideas...
 
-[ ] - "Favorite" a gig
+- [ ] "Favorite" a gig
 
 * In the schedule view, you click a star to indicate you want to see the show
     * Save to local storage
@@ -77,14 +77,14 @@ At a high level, what goals do we have, including uses cases?
         * Warn the user?
         * Warn the admins?
 
-[ ] - Band info
+- [ ] Band info
 
-[ ] - Filters
+- [ ] Filters
 
 * "I'm only interested in folk music", for example
 * "I'm only interested in music from 2pm-4pm", for example
 
-[ ] - Indicate genre by shape of marker
+- [ ] Indicate genre by shape of marker
 
 * This may not be necessary if we use colors for genre
     * Idea 1: Circle=Rock, Square=Alternative, Triangle=Hip-Hop, etc.
