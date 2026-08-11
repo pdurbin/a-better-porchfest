@@ -149,7 +149,7 @@
           gigsText += `
             <div class="gig-entry">
             ${gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} -
-            <a href="#" onclick="showBandInfo(this, '${gig.bandid}'); return false;">
+            <a href="#" onclick="showBandInfo(this, '${gigid}'); return false;">
             ${band.actname}
             </a>
             </div>
@@ -160,9 +160,12 @@
       }
 
       // --- Render band info into HTML (basic formatting) ---
-      function renderBandInfo(band) {
+      function renderBandInfo(band, gig, porch) {
         // helper to hide empty fields
         const n = (v) => v == null ? "" : String(v).trim();
+        const genreText = n(band.genre) || n(band.other_genre);
+        const hasBandDetails = genreText || n(band.description);
+        const timeRange = `${gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} - ${gigEndTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
         const links = [];
         if (n(band.website))   links.push(`<a href="${band.website}" target="_blank" rel="noopener">Website</a>`);
         if (n(band.facebook))  links.push(`<a href="${band.facebook}" target="_blank" rel="noopener">Facebook</a>`);
@@ -174,17 +177,19 @@
 
         return `
           <h3>${band.actname}</h3>
-          <div class="meta">
-            <strong>Genre:</strong> ${n(band.genre) || (n(band.other_genre) ? n(band.other_genre) : "—")}
-          </div>
+          <div class="meta"><strong>When:</strong> ${timeRange}</div>
+          <div class="meta"><strong>Where:</strong> ${n(porch.address)}</div>
+          ${genreText ? `<div class="meta"><strong>Genre:</strong> ${genreText}</div>` : ""}
           ${n(band.description) ? `<div class="desc">${band.description}</div>` : ""}
           ${links.length ? `<div class="links" style="margin-top:8px;">${links.join(" ")}</div>` : ""}
         `;
       }
 
       // --- Overlay behavior: show under clicked link ---
-      window.showBandInfo = function(linkEl, bandid) {
-        const band = bands[bandid];
+      window.showBandInfo = function(linkEl, gigid) {
+        const gig = gigs[gigid];
+        const band = gig ? bands[gig.bandid] : null;
+        const porch = gig ? porches[gig.porchid] : null;
 
         // Remove any existing overlay
         document.querySelectorAll('.band-overlay').forEach(el => el.remove());
@@ -192,7 +197,7 @@
         // Create overlay
         const overlay = document.createElement('div');
         overlay.className = 'band-overlay';
-        overlay.innerHTML = band ? renderBandInfo(band) : `<div style="color:#c00">Band not found</div>`;
+        overlay.innerHTML = (band && gig && porch) ? renderBandInfo(band, gig, porch) : `<div style="color:#c00">Gig details not found</div>`;
 
         // Insert under this gig row
         const container = linkEl.closest('.gig-entry');
