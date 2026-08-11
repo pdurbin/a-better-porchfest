@@ -94,15 +94,35 @@
         resetMarkers()
       }
 
+      function renderPorchPopup(porchid) {
+        const porch = porches[porchid]
+        const shortAddress = porch.address.replace(/,\s*Brookline,\s*MA\s*$/i, '')
+        const porchGigs = sortedGigIds
+          .map(gigid => gigs[gigid])
+          .filter(gig => gig.bandid !== null && gig.porchid === porchid)
+
+        const scheduleHtml = porchGigs.map(gig => {
+          const band = bands[gig.bandid]
+          const start = gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+          const name = band && band.actname ? band.actname : 'Unknown band'
+          return `<div style="margin-top:4px;">${start} — ${name}</div>`
+        }).join('')
+
+        return `
+          <div>
+            <strong>${shortAddress}</strong>
+            ${scheduleHtml ? `<div style="margin-top:8px;">${scheduleHtml}</div>` : `<div style="margin-top:8px;">No listed performances.</div>`}
+          </div>
+        `
+      }
+
       function addMarkers() {
         for (porchid in porches) {
-          const porch = porches[porchid]
-
           // Creating a marker
-          var marker = new L.Marker([porch.lat, porch.lng]);
+          var marker = new L.Marker([porches[porchid].lat, porches[porchid].lng]);
 
           var popup = L.popup()
-            .setContent(porch.address);
+            .setContent(renderPorchPopup(porchid));
 
           marker.bindPopup(popup).openPopup();
 
