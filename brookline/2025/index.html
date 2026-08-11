@@ -18,6 +18,15 @@
 
     <style>
       body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .controls label { font-size: 14px; }
+      .controls .status { font-size: 13px; color: #444; }
+      .controls input[type="range"] { width: 220px; }
       .gig-entry {
         position: relative; /* anchor for overlay */
         margin: 6px 0;
@@ -48,6 +57,15 @@
     </style>
   </head>
   <body>
+    <div class="controls">
+      <label>
+        <input id="use-pretend-time" type="checkbox" />
+        Pretend time
+      </label>
+      <input id="pretend-time" type="range" min="0" max="1439" step="10" />
+      <span id="pretend-time-status" class="status"></span>
+    </div>
+
     <!-- Map -->
     <div id="map" style="width: 100%; height: 80vh"></div>
 
@@ -58,21 +76,94 @@
     <script>
       const map = L.map('map').setView([42.338504, -71.125672], 14)
       const markersByPorchId = {};
+      const usePretendTimeCheckbox = document.getElementById('use-pretend-time');
+      const pretendTimeInput = document.getElementById('pretend-time');
+      const pretendTimeStatus = document.getElementById('pretend-time-status');
 
       L.maplibreGL({
         style: 'https://tiles.openfreemap.org/styles/liberty',
       }).addTo(map)
 
+      function toMinutesSinceMidnight(date) {
+        return (date.getHours() * 60) + date.getMinutes()
+      }
+
+      function formatMinutesSinceMidnight(totalMinutes) {
+        const minutesInDay = 24 * 60
+        const normalized = ((totalMinutes % minutesInDay) + minutesInDay) % minutesInDay
+        const hours = Math.floor(normalized / 60)
+        const minutes = normalized % 60
+        const formattedDate = new Date(2000, 0, 1, hours, minutes, 0, 0)
+        return formattedDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+      }
+
+      function gigStartMinutes(gig) {
+        return (Number(gig.starthour) * 60) + Number(gig.startminute)
+      }
+
+      function scheduleBounds() {
+        const scheduledGigs = Object.values(gigs).filter(gig => gig.bandid !== null)
+        const minutes = scheduledGigs.map(gigStartMinutes)
+        return {
+          min: Math.min(...minutes),
+          max: Math.max(...minutes),
+        }
+      }
+
+      function clampMinutes(value, min, max) {
+        return Math.min(max, Math.max(min, value))
+      }
+
+      function getEffectiveNow() {
+        const realNow = new Date()
+        if (!usePretendTimeCheckbox.checked) {
+          return realNow
+        }
+
+        const rawMinutes = Number(pretendTimeInput.value)
+        const hour = Math.floor(rawMinutes / 60)
+        const minute = rawMinutes % 60
+
+        if (Number.isNaN(hour) || Number.isNaN(minute)) {
+          return realNow
+        }
+
+        return new Date(
+          realNow.getFullYear(),
+          realNow.getMonth(),
+          realNow.getDate(),
+          hour,
+          minute,
+          0,
+          0,
+        )
+      }
+
+      function refreshPretendTimeStatus() {
+        pretendTimeInput.disabled = !usePretendTimeCheckbox.checked
+        if (usePretendTimeCheckbox.checked) {
+          pretendTimeStatus.textContent = `Planning as if it is ${formatMinutesSinceMidnight(Number(pretendTimeInput.value))}`
+        } else {
+          const activeNow = getEffectiveNow()
+          pretendTimeStatus.textContent = `Using real time (${activeNow.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })})`
+        }
+      }
+
       function gigStartTime(gig) {
-        // I think it will default to "today"
-        const now = new Date()
-        const offset = 60 * 60 * 1000 * 3 // Pretend Porchfest started 3 hours later than it did. We'll make this dynamic later.
-        const originalTime = new Date(now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + gig.starthour + ":" + gig.startminute)
-        return new Date(originalTime.getTime() + offset)
+        const now = getEffectiveNow()
+        return new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          Number(gig.starthour),
+          Number(gig.startminute),
+          0,
+          0,
+        )
       }
       function gigEndTime(gig) {
-        MS_PER_MINUTE = 60 * 1000
-        return new Date(gigStartTime(gig).getTime() + gig.duration * MS_PER_MINUTE)
+        const msPerMinute = 60 * 1000
+        return new Date(gigStartTime(gig).getTime() + Number(gig.duration) * msPerMinute)
       }
       function porchInView(porch, viewBounds) {
         return (
@@ -83,11 +174,11 @@
         )
       }
 
-      const anchor = {'starthour':Date.now().hour, 'startminute':Date.now().minute, 'bandid':null}
-      gigs['now_anchor'] = anchor
-      const sortedGigIds = Object.keys(gigs).sort((a, b) => {
-        return gigStartTime(gigs[a]) - gigStartTime(gigs[b]);
-      });
+      function sortedGigIds() {
+        return Object.keys(gigs)
+          .filter(gigid => gigs[gigid].bandid !== null)
+          .sort((a, b) => gigStartTime(gigs[a]) - gigStartTime(gigs[b]))
+      }
 
       function update() {
         resetGigs()
@@ -97,7 +188,7 @@
       function renderPorchPopup(porchid) {
         const porch = porches[porchid]
         const shortAddress = porch.address.replace(/,\s*Brookline,\s*MA\s*$/i, '')
-        const porchGigs = sortedGigIds
+        const porchGigs = sortedGigIds()
           .map(gigid => gigs[gigid])
           .filter(gig => gig.bandid !== null && gig.porchid === porchid)
 
@@ -133,12 +224,12 @@
       }
 
       function resetMarkers() {
-        const now = new Date();
+        const now = getEffectiveNow();
         for (porchid in porches) {
-          remainingGigsForPorch = Object.values(gigs).filter(gig => {
-            return gigEndTime(gig) < now && gig.porchid === porchid
+          const activeOrUpcomingGigsForPorch = Object.values(gigs).filter(gig => {
+            return gig.bandid !== null && gigEndTime(gig) >= now && gig.porchid === porchid
           })
-          if (remainingGigsForPorch.length) {
+          if (activeOrUpcomingGigsForPorch.length) {
             markersByPorchId[porchid].setOpacity(1)
           } else {
             markersByPorchId[porchid].setOpacity(0.3)
@@ -149,15 +240,12 @@
       function resetGigs() {
         const viewBounds = map.getBounds()
         let gigsText = "";
-        const now = Date.now();
+        const now = getEffectiveNow();
+        let anchorGigElementId = null;
 
-        for (const gigid of sortedGigIds) {
+        for (const gigid of sortedGigIds()) {
           // for this gig...
           const gig = gigs[gigid]
-          if (gig.bandid === null) {
-              gigsText = gigsText + "<div id=\"id_now_anchor\"> </div>";
-              continue;
-          }
           const band = bands[gig.bandid]
           const porch = porches[gig.porchid]
 
@@ -166,9 +254,15 @@
               continue
           }
 
+          const gigStartsAt = gigStartTime(gig)
+          const gigRowId = `gig-row-${gigid}`
+          if (!anchorGigElementId && gigStartsAt >= now) {
+            anchorGigElementId = gigRowId
+          }
+
           gigsText += `
-            <div class="gig-entry">
-            ${gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} -
+            <div class="gig-entry" id="${gigRowId}">
+            ${gigStartsAt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} -
             <a href="#" onclick="showBandInfo(this, '${gigid}'); return false;">
             ${band.actname}
             </a>
@@ -176,7 +270,14 @@
             `;
         }
         document.getElementById('gigs').innerHTML = gigsText;
-        document.getElementById('id_now_anchor').scrollIntoView();
+        if (anchorGigElementId) {
+          const gigsContainer = document.getElementById('gigs')
+          const anchorElement = document.getElementById(anchorGigElementId)
+          if (anchorElement && gigsContainer) {
+            const targetTop = Math.max(0, anchorElement.offsetTop - 24)
+            gigsContainer.scrollTop = targetTop
+          }
+        }
       }
 
       // --- Render band info into HTML (basic formatting) ---
@@ -251,6 +352,22 @@
         }, 0);
         document.addEventListener('keydown', onEsc, true);
       };
+
+      const bounds = scheduleBounds()
+      pretendTimeInput.min = String(bounds.min)
+      pretendTimeInput.max = String(bounds.max)
+      pretendTimeInput.value = String(clampMinutes(toMinutesSinceMidnight(new Date()), bounds.min, bounds.max))
+      refreshPretendTimeStatus()
+
+      usePretendTimeCheckbox.addEventListener('change', () => {
+        refreshPretendTimeStatus()
+        update()
+      })
+
+      pretendTimeInput.addEventListener('input', () => {
+        refreshPretendTimeStatus()
+        update()
+      })
 
       addMarkers()
 
