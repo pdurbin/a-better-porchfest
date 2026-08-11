@@ -1408,6 +1408,96 @@ const bands = {
         "description": "",
         "image": "",
         "_id": "band_0094"
+    },
+    "band_0095": {
+        "actname": "Tom Marton & Friends",
+        "genre": "",
+        "other_genre": "",
+        "website": "",
+        "facebook": "",
+        "instagram": "",
+        "bandcamp": "",
+        "spotify": "",
+        "apple": "",
+        "otheronline": "",
+        "description": "",
+        "image": "",
+        "_id": "band_0095"
+    },
+    "band_0096": {
+        "actname": "Aditi & Her Friends",
+        "genre": "",
+        "other_genre": "",
+        "website": "",
+        "facebook": "",
+        "instagram": "",
+        "bandcamp": "",
+        "spotify": "",
+        "apple": "",
+        "otheronline": "",
+        "description": "",
+        "image": "",
+        "_id": "band_0096"
+    },
+    "band_0097": {
+        "actname": "Jumpin' John's Jukebox",
+        "genre": "",
+        "other_genre": "",
+        "website": "",
+        "facebook": "",
+        "instagram": "",
+        "bandcamp": "",
+        "spotify": "",
+        "apple": "",
+        "otheronline": "",
+        "description": "",
+        "image": "",
+        "_id": "band_0097"
+    },
+    "band_0098": {
+        "actname": "Abe's All Star Jam",
+        "genre": "",
+        "other_genre": "",
+        "website": "",
+        "facebook": "",
+        "instagram": "",
+        "bandcamp": "",
+        "spotify": "",
+        "apple": "",
+        "otheronline": "",
+        "description": "",
+        "image": "",
+        "_id": "band_0098"
+    },
+    "band_0099": {
+        "actname": "Tusken & The Raiders",
+        "genre": "",
+        "other_genre": "",
+        "website": "",
+        "facebook": "",
+        "instagram": "",
+        "bandcamp": "",
+        "spotify": "",
+        "apple": "",
+        "otheronline": "",
+        "description": "",
+        "image": "",
+        "_id": "band_0099"
+    },
+    "band_0100": {
+        "actname": "Mark Zelermyer & Friends",
+        "genre": "",
+        "other_genre": "",
+        "website": "",
+        "facebook": "",
+        "instagram": "",
+        "bandcamp": "",
+        "spotify": "",
+        "apple": "",
+        "otheronline": "",
+        "description": "",
+        "image": "",
+        "_id": "band_0100"
     }
 };
 
@@ -2600,5 +2690,53 @@ const gigs = {
         "startminute": "10",
         "duration": "60",
         "_id": "gig_00094"
+    },
+    "gig_00095": {
+        "bandid": "band_0095",
+        "porchid": "porch_0006",
+        "starthour": "14",
+        "startminute": "20",
+        "duration": "120",
+        "_id": "gig_00095"
+    },
+    "gig_00096": {
+        "bandid": "band_0096",
+        "porchid": "porch_0011",
+        "starthour": "14",
+        "startminute": "20",
+        "duration": "60",
+        "_id": "gig_00096"
+    },
+    "gig_00097": {
+        "bandid": "band_0097",
+        "porchid": "porch_0016",
+        "starthour": "12",
+        "startminute": "00",
+        "duration": "120",
+        "_id": "gig_00097"
+    },
+    "gig_00098": {
+        "bandid": "band_0098",
+        "porchid": "porch_0037",
+        "starthour": "16",
+        "startminute": "00",
+        "duration": "120",
+        "_id": "gig_00098"
+    },
+    "gig_00099": {
+        "bandid": "band_0099",
+        "porchid": "porch_0042",
+        "starthour": "15",
+        "startminute": "10",
+        "duration": "60",
+        "_id": "gig_00099"
+    },
+    "gig_00100": {
+        "bandid": "band_0100",
+        "porchid": "porch_0059",
+        "starthour": "15",
+        "startminute": "40",
+        "duration": "60",
+        "_id": "gig_00100"
     }
 };
