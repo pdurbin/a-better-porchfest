@@ -210,6 +210,7 @@
         const gig = gigs[gigid];
         const band = gig ? bands[gig.bandid] : null;
         const porch = gig ? porches[gig.porchid] : null;
+        const marker = gig ? markersByPorchId[gig.porchid] : null;
 
         // Remove any existing overlay
         document.querySelectorAll('.band-overlay').forEach(el => el.remove());
@@ -218,6 +219,10 @@
         const overlay = document.createElement('div');
         overlay.className = 'band-overlay';
         overlay.innerHTML = (band && gig && porch) ? renderBandInfo(band, gig, porch) : `<div style="color:#c00">Gig details not found</div>`;
+
+        if (marker) {
+          marker.openPopup();
+        }
 
         // Insert under this gig row
         const container = linkEl.closest('.gig-entry');
@@ -234,6 +239,9 @@
         };
         function cleanup() {
           overlay.remove();
+          if (marker) {
+            marker.closePopup();
+          }
           document.removeEventListener('click', onDocClick, true);
           document.removeEventListener('keydown', onEsc, true);
         }
