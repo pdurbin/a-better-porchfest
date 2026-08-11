@@ -1,0 +1,1284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Brookline Porchfest 2025</name>
+    <description/>
+    <Style id="icon-1899-0F9D58-normal">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-1.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0F9D58-highlight">
+      <IconStyle>
+        <scale>1</scale>
+        <Icon>
+          <href>images/icon-1.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0F9D58">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0F9D58-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0F9D58-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Brookline Porchfest 2025 Schedule - Final (For Map)</name>
+      <Placemark>
+        <name>188 Winchester Street Unit 2, Brookline, MA</name>
+        <address>188 Winchester Street Unit 2, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:00pm - 3:00pm: The Wiggly Tendrils<br>Performance 2: 3:10pm - 4:40pm: The Sol Project<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:00pm - 3:00pm: The Wiggly Tendrils</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>3:10pm - 4:40pm: The Sol Project</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>81 Verndale Street, Brookline, MA</name>
+        <address>81 Verndale Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: 13 Down Below<br>Performance 2: 1:10pm - 2:10pm: Off the Record<br>Performance 3: 3:30pm - 4:30pm: The Roundabouts<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: 13 Down Below</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:10pm - 2:10pm: Off the Record</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>3:30pm - 4:30pm: The Roundabouts</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>45 Russell Street, Brookline, MA</name>
+        <address>45 Russell Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: The Monday Blues<br>Performance 2: 1:10pm - 2:10pm: Mostly Gray Quartet<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: The Monday Blues</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:10pm - 2:10pm: Mostly Gray Quartet</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>112 Centre Street, Brookline, MA</name>
+        <address>112 Centre Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:00pm - 4:00pm: CCB-Sides<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:00pm - 4:00pm: CCB-Sides</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>83 Verndale Street, Brookline, MA</name>
+        <address>83 Verndale Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:20pm - 3:20pm: Lateral Collateral<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:20pm - 3:20pm: Lateral Collateral</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>32 Russell Street, Brookline, MA</name>
+        <address>32 Russell Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:20pm - 4:20pm: Tom Marton & Friends<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value><![CDATA[2:20pm - 4:20pm: Tom Marton & Friends]]></value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>69 Columbia Street, Brookline, MA</name>
+        <address>69 Columbia Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 11:00am - 12:00pm: Linda Marks, Singer-Songwriter<br>Performance 2: 5:00pm - 6:00pm: Usually Seven<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>11:00am - 12:00pm: Linda Marks, Singer-Songwriter</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>5:00pm - 6:00pm: Usually Seven</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>29 Thorndike Street, Brookline, MA</name>
+        <address>29 Thorndike Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:00pm - 3:30pm: Indoor Friends<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:00pm - 3:30pm: Indoor Friends</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>25 Jenness Road, Brookline, MA</name>
+        <address>25 Jenness Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 5:00pm - 6:00pm: Temple Israel Choir<br>Performance 2: 2:30pm - 3:00pm: The Wannabes<br>Performance 3: 3:10pm - 3:40pm: Em Wise<br>Performance 4: 3:50pm - 4:20pm: Orange Percolator]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>5:00pm - 6:00pm: Temple Israel Choir</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>2:30pm - 3:00pm: The Wannabes</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>3:10pm - 3:40pm: Em Wise</value>
+          </Data>
+          <Data name="Performance 4">
+            <value>3:50pm - 4:20pm: Orange Percolator</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>1398 Beacon Street, Brookline, MA</name>
+        <address>1398 Beacon Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: Wayward Vine<br>Performance 2: 1:10pm - 2:10pm: We Became Whales<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: Wayward Vine</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:10pm - 2:10pm: We Became Whales</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>96 Winchester Street, Brookline, MA</name>
+        <address>96 Winchester Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:20pm - 3:20pm: Aditi & Her Friends<br>Performance 2: 3:30pm - 4:30pm: Jammwich<br>Performance 3: 4:40pm - 5:50pm: station street<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value><![CDATA[2:20pm - 3:20pm: Aditi & Her Friends]]></value>
+          </Data>
+          <Data name="Performance 2">
+            <value>3:30pm - 4:30pm: Jammwich</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>4:40pm - 5:50pm: station street</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>40 Abbottsford Road, Brookline, MA</name>
+        <address>40 Abbottsford Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 3:00pm - 4:00pm: Klez Encounters<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>3:00pm - 4:00pm: Klez Encounters</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>78 Powell Street, Brookline, MA</name>
+        <address>78 Powell Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:00pm - 2:30pm: Abrielle Scharff<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:00pm - 2:30pm: Abrielle Scharff</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>58 Beals Street, Brookline, MA</name>
+        <address>58 Beals Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:00pm - 3:00pm: Bernoulli Winds Ensemble<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:00pm - 3:00pm: Bernoulli Winds Ensemble</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>106 Beals Street, Brookline, MA</name>
+        <address>106 Beals Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: Them City Ducks<br>Performance 2: 1:10pm - 2:10pm: Sandra Waddock and Michael Kaufman<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: Them City Ducks</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:10pm - 2:10pm: Sandra Waddock and Michael Kaufman</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>41 Osborne Road, Brookline, MA</name>
+        <address>41 Osborne Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 2:00pm: Jumpin' John's Jukebox<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value><![CDATA[12:00pm - 2:00pm: Jumpin' John's Jukebox]]></value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>111 Babcock Street, Brookline, MA</name>
+        <address>111 Babcock Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:30pm - 2:30pm: Objects in Motion<br>Performance 2: 2:40pm - 3:40pm: Tracksuit Pacino<br>Performance 3: 3:50pm - 4:50pm: Classic Obsession<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:30pm - 2:30pm: Objects in Motion</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>2:40pm - 3:40pm: Tracksuit Pacino</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>3:50pm - 4:50pm: Classic Obsession</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>34 Manchester Road, Brookline, MA</name>
+        <address>34 Manchester Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:40pm - 2:40pm: Woodfern<br>Performance 2: 2:50pm - 3:50pm: The Heather Mumford Project<br>Performance 3: 4:00pm - 5:00pm: Jam Sandwich<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:40pm - 2:40pm: Woodfern</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>2:50pm - 3:50pm: The Heather Mumford Project</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>4:00pm - 5:00pm: Jam Sandwich</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>68 Davis Avenue, Brookline, MA</name>
+        <address>68 Davis Avenue, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:40pm - 2:40pm: Justin and Friends<br>Performance 2: 2:50pm - 3:50pm: The Burning Sensations<br>Performance 3: 4:00pm - 5:00pm: Filet of Soul<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:40pm - 2:40pm: Justin and Friends</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>2:50pm - 3:50pm: The Burning Sensations</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>4:00pm - 5:00pm: Filet of Soul</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>58 Davis Avenue, Brookline, MA</name>
+        <address>58 Davis Avenue, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:30pm: The Sharp Nines<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:30pm: The Sharp Nines</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>69 Cypress Street, Brookline, MA</name>
+        <address>69 Cypress Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 4:40pm - 5:40pm: Monster Groove and the Killer Horns<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>4:40pm - 5:40pm: Monster Groove and the Killer Horns</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>84 University Road, Brookline MA</name>
+        <address>84 University Road, Brookline MA</address>
+        <description><![CDATA[Performance 1: 4:00pm - 6:00pm: Coulda Been Worse<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>4:00pm - 6:00pm: Coulda Been Worse</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>261 Walnut Street #1, Brookline, MA</name>
+        <address>261 Walnut Street #1, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:00pm - 1:30pm: PRISMS<br>Performance 2: 1:40pm - 2:10pm: Saexia + PRISMS<br>Performance 3: 2:20pm - 3:20pm: Don Hammontree<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:00pm - 1:30pm: PRISMS</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:40pm - 2:10pm: Saexia + PRISMS</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>2:20pm - 3:20pm: Don Hammontree</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>6 Claflin Road, Brookline, MA</name>
+        <address>6 Claflin Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:00pm - 2:30pm: Boston Cecilia<br>Performance 2: 2:40pm - 4:10pm: Orange Squeeze<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:00pm - 2:30pm: Boston Cecilia</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>2:40pm - 4:10pm: Orange Squeeze</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>23 Harris Street, Brookline, MA</name>
+        <address>23 Harris Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:30pm - 4:30pm: The Mighty Silverbacks<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:30pm - 4:30pm: The Mighty Silverbacks</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>256 Tappan Street, Brookline, MA</name>
+        <address>256 Tappan Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:00pm - 2:30pm: Raine and Jade<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:00pm - 2:30pm: Raine and Jade</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>12 Greenough Street, Brookline, MA</name>
+        <address>12 Greenough Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:30pm - 1:30pm: Collective Measures<br>Performance 2: 1:40pm - 2:40pm: Julian Spector<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:30pm - 1:30pm: Collective Measures</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:40pm - 2:40pm: Julian Spector</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>17 Park Vale, Brookline, MA</name>
+        <address>17 Park Vale, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:30pm - 2:00pm: Mass Bluesbreakers<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:30pm - 2:00pm: Mass Bluesbreakers</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>30 Stanton Road, Brookline, MA</name>
+        <address>30 Stanton Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: Brighton Jazz Trio<br>Performance 2: 1:10pm - 2:10pm: Anemoia<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: Brighton Jazz Trio</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:10pm - 2:10pm: Anemoia</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>44 Edgehill Road, Brookline, MA</name>
+        <address>44 Edgehill Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 11:00am - 12:00pm: The Hip Replacements<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>11:00am - 12:00pm: The Hip Replacements</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>361 Washington Street, Brookline, MA</name>
+        <address>361 Washington Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 3:00pm - 4:30pm: The Strummerville Ukulele Club featuring The After Jam<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>3:00pm - 4:30pm: The Strummerville Ukulele Club featuring The After Jam</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>21 Weybridge Road, Brookline, MA</name>
+        <address>21 Weybridge Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 4:30pm - 5:30pm: Flamenco<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>4:30pm - 5:30pm: Flamenco</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>59 Griggs Road, Brookline, MA</name>
+        <address>59 Griggs Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:50pm - 4:20pm: Antique Road Show<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:50pm - 4:20pm: Antique Road Show</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>7 Griggs Terrace, Brookline, MA</name>
+        <address>7 Griggs Terrace, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 11:30am - 12:30pm: Trophy Wives<br>Performance 2: 12:40pm - 1:40pm: Mike Barrasso<br>Performance 3: 1:50pm - 2:50pm: Seth Hanson<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>11:30am - 12:30pm: Trophy Wives</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>12:40pm - 1:40pm: Mike Barrasso</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>1:50pm - 2:50pm: Seth Hanson</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>85 Stanton Road, Brookline, MA</name>
+        <address>85 Stanton Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 12:30pm: Pop and Dots<br>Performance 2: 12:40pm - 1:40pm: The ONYX Trio<br>Performance 3: 1:50pm - 2:20pm: Neponset Monastery<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 12:30pm: Pop and Dots</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>12:40pm - 1:40pm: The ONYX Trio</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>1:50pm - 2:20pm: Neponset Monastery</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>162 Cypress Street, Brookline, MA</name>
+        <address>162 Cypress Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:00pm - 4:00pm: The Grateful Dads<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:00pm - 4:00pm: The Grateful Dads</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>282 Cypress Street, Brookline, MA</name>
+        <address>282 Cypress Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 4:00pm - 6:00pm: Abe's All Star Jam<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value><![CDATA[4:00pm - 6:00pm: Abe's All Star Jam]]></value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>1550 Beacon Street, Brookline, MA</name>
+        <address>1550 Beacon Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: Shadows on the Mountain<br>Performance 2: 1:10pm - 2:10pm: Terry Kitchen<br>Performance 3: 2:20pm - 3:20pm: Glanzer Mar<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: Shadows on the Mountain</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:10pm - 2:10pm: Terry Kitchen</value>
+          </Data>
+          <Data name="Performance 3">
+            <value>2:20pm - 3:20pm: Glanzer Mar</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>62 Toxteth Street, Brookline, MA</name>
+        <address>62 Toxteth Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 12:30pm: Alpha Male<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 12:30pm: Alpha Male</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>61 Toxteth Street, Brookline, MA</name>
+        <address>61 Toxteth Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:30pm - 2:30pm: Sweetbrier<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:30pm - 2:30pm: Sweetbrier</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>38 Harrison Street, Brookline, MA</name>
+        <address>38 Harrison Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:30pm - 3:30pm: BroadBand<br>Performance 2: 3:40pm - 4:40pm: DISCO.very<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:30pm - 3:30pm: BroadBand</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>3:40pm - 4:40pm: DISCO.very</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>152 Aspinwall Ave, Brookline, MA</name>
+        <address>152 Aspinwall Ave, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:00pm - 3:00pm: Jazz with Yas<br>Performance 2: 3:10pm - 4:10pm: Tusken & The Raiders<br>Performance 3: 4:20pm - 4:50pm: washaway<br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:00pm - 3:00pm: Jazz with Yas</value>
+          </Data>
+          <Data name="Performance 2">
+            <value><![CDATA[3:10pm - 4:10pm: Tusken & The Raiders]]></value>
+          </Data>
+          <Data name="Performance 3">
+            <value>4:20pm - 4:50pm: washaway</value>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>177 Aspinwall Avenue, Brookline, MA</name>
+        <address>177 Aspinwall Avenue, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:30pm - 2:30pm: Clarion Call<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:30pm - 2:30pm: Clarion Call</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>66 Perry Street, Brookline, MA</name>
+        <address>66 Perry Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:30pm - 4:00pm: Ricardo Barraza<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:30pm - 4:00pm: Ricardo Barraza</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>101 Stearns Road, Brookline, MA</name>
+        <address>101 Stearns Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 4:10pm - 6:10pm: Tio Rojo and friends<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>4:10pm - 6:10pm: Tio Rojo and friends</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>81 Toxteth Street, Brookline, MA</name>
+        <address>81 Toxteth Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 4:50pm - 5:20pm: Vices Inc<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>4:50pm - 5:20pm: Vices Inc</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>102 Stearns Road, Brookline, MA</name>
+        <address>102 Stearns Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 3:00pm - 4:00pm: Kiara Nothhaft<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>3:00pm - 4:00pm: Kiara Nothhaft</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>83 Stearns Road, Brookline, MA</name>
+        <address>83 Stearns Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 11:00am - 12:00pm: Chris Goudreau<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>11:00am - 12:00pm: Chris Goudreau</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>89 St. Paul Street, Brookline, MA</name>
+        <address>89 St. Paul Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:00pm - 2:00pm: Muddy River Drifters<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:00pm - 2:00pm: Muddy River Drifters</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>91 Saint Paul Street, Brookline, MA</name>
+        <address>91 Saint Paul Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: The Slow Down<br>Performance 2: 2:00pm - 3:00pm: Not Dead Yet<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: The Slow Down</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>2:00pm - 3:00pm: Not Dead Yet</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>17 Chatham Circle, Brookline, MA</name>
+        <address>17 Chatham Circle, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: On That Note<br>Performance 2: 1:10pm - 2:10pm: Carpe Diem Chorus<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: On That Note</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>1:10pm - 2:10pm: Carpe Diem Chorus</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>44 Brook Street, Brookline, MA</name>
+        <address>44 Brook Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:30pm - 4:30pm: Captains of Industry<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:30pm - 4:30pm: Captains of Industry</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>73 Linden Street, Brookline, MA</name>
+        <address>73 Linden Street, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:00pm - 3:00pm: Late Start<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:00pm - 3:00pm: Late Start</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>40 Aspinwall Avenue, Brookline, MA</name>
+        <address>40 Aspinwall Avenue, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 3:00pm - 4:00pm: BTC House Band<br>Performance 2: 4:10pm - 5:10pm: Redwire<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>3:00pm - 4:00pm: BTC House Band</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>4:10pm - 5:10pm: Redwire</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>49 Ackers Avenue, Brookline, MA</name>
+        <address>49 Ackers Avenue, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:00pm - 2:30pm The Pickleleles<br>Performance 2: 2:40pm - 4:10pm: Lemonshiners<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:00pm - 2:30pm The Pickleleles</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>2:40pm - 4:10pm: Lemonshiners</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>32 Kennard Road, Brookline, MA</name>
+        <address>32 Kennard Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 3:00pm - 5:00pm: The Newtalians<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>3:00pm - 5:00pm: The Newtalians</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>285 Clark Road, Brookline, MA</name>
+        <address>285 Clark Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 1:00pm - 3:00pm: Jay Ottaway and The Ramble<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>1:00pm - 3:00pm: Jay Ottaway and The Ramble</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>266 Clark Road, Brookline, MA</name>
+        <address>266 Clark Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:00pm - 1:00pm: The Know Nothings<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:00pm - 1:00pm: The Know Nothings</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>242 Clark Road, Brookline, MA</name>
+        <address>242 Clark Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 3:00pm - 3:30pm: 3AM<br>Performance 2: 3:40pm - 4:40pm: Mark Zelermyer & Friends<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>3:00pm - 3:30pm: 3AM</value>
+          </Data>
+          <Data name="Performance 2">
+            <value><![CDATA[3:40pm - 4:40pm: Mark Zelermyer & Friends]]></value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>41 Kilsyth Road, Brookline, MA</name>
+        <address>41 Kilsyth Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 3:00pm - 4:00pm: My Midlife Crisis<br>Performance 2: 4:10pm - 5:10pm: The Lookouts<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>3:00pm - 4:00pm: My Midlife Crisis</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>4:10pm - 5:10pm: The Lookouts</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>39 Eliot Crescent, Brookline, MA</name>
+        <address>39 Eliot Crescent, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 12:50pm - 1:50pm: Beech Party<br>Performance 2: 2:00pm - 3:00pm: Ahmed Band<br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>12:50pm - 1:50pm: Beech Party</value>
+          </Data>
+          <Data name="Performance 2">
+            <value>2:00pm - 3:00pm: Ahmed Band</value>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+      <Placemark>
+        <name>34 Hyslop Road, Brookline, MA</name>
+        <address>34 Hyslop Road, Brookline, MA</address>
+        <description><![CDATA[Performance 1: 2:10pm - 3:10pm: Descarga Cubana<br>Performance 2: <br>Performance 3: <br>Performance 4: ]]></description>
+        <styleUrl>#icon-1899-0F9D58</styleUrl>
+        <ExtendedData>
+          <Data name="Performance 1">
+            <value>2:10pm - 3:10pm: Descarga Cubana</value>
+          </Data>
+          <Data name="Performance 2">
+            <value/>
+          </Data>
+          <Data name="Performance 3">
+            <value/>
+          </Data>
+          <Data name="Performance 4">
+            <value/>
+          </Data>
+        </ExtendedData>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
