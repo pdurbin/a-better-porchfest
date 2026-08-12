@@ -23,10 +23,85 @@
         align-items: center;
         gap: 10px;
         margin-bottom: 10px;
+        flex-wrap: wrap;
       }
       .controls label { font-size: 14px; }
       .controls .status { font-size: 13px; color: #444; }
       .controls input[type="range"] { width: 220px; }
+      .time-window {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .time-window .time-label {
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      .dual-slider {
+        position: relative;
+        width: 260px;
+        height: 22px;
+      }
+      .dual-slider .slider-track,
+      .dual-slider .slider-range {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 4px;
+        border-radius: 999px;
+      }
+      .dual-slider .slider-track {
+        left: 0;
+        right: 0;
+        background: #d0d6dc;
+      }
+      .dual-slider .slider-range {
+        background: #2276f3;
+      }
+      .dual-slider input[type="range"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background: transparent;
+        pointer-events: none;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .dual-slider input[type="range"]::-webkit-slider-runnable-track {
+        height: 4px;
+        background: transparent;
+      }
+      .dual-slider input[type="range"]::-moz-range-track {
+        height: 4px;
+        background: transparent;
+      }
+      .dual-slider input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid #2276f3;
+        background: #fff;
+        pointer-events: auto;
+        cursor: pointer;
+        margin-top: -5px;
+      }
+      .dual-slider input[type="range"]::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid #2276f3;
+        background: #fff;
+        pointer-events: auto;
+        cursor: pointer;
+      }
+      .dual-slider.disabled {
+        opacity: 0.55;
+      }
       .gig-entry {
         position: relative; /* anchor for overlay */
         margin: 6px 0;
@@ -59,10 +134,19 @@
   <body>
     <div class="controls">
       <label>
-        <input id="use-pretend-time" type="checkbox" />
+        <input id="use-pretend-time" type="checkbox" checked />
         Pretend time
       </label>
-      <input id="pretend-time" type="range" min="0" max="1439" step="10" />
+      <div class="time-window">
+        <span class="time-label">Start time</span>
+        <div id="time-window-slider" class="dual-slider">
+          <div class="slider-track"></div>
+          <div id="time-window-range" class="slider-range"></div>
+          <input id="pretend-time" type="range" min="0" max="1439" step="10" />
+          <input id="pretend-end-time" type="range" min="0" max="1439" step="10" />
+        </div>
+        <span class="time-label">End time</span>
+      </div>
       <span id="pretend-time-status" class="status"></span>
     </div>
 
@@ -78,6 +162,9 @@
       const markersByPorchId = {};
       const usePretendTimeCheckbox = document.getElementById('use-pretend-time');
       const pretendTimeInput = document.getElementById('pretend-time');
+      const pretendEndTimeInput = document.getElementById('pretend-end-time');
+      const timeWindowSlider = document.getElementById('time-window-slider');
+      const timeWindowRange = document.getElementById('time-window-range');
       const pretendTimeStatus = document.getElementById('pretend-time-status');
 
       L.maplibreGL({
@@ -114,19 +201,31 @@
         return Math.min(max, Math.max(min, value))
       }
 
-      function getEffectiveNow() {
-        const realNow = new Date()
+      function currentMinutesSinceMidnight() {
+        return toMinutesSinceMidnight(new Date())
+      }
+
+      function selectedTimeBounds() {
+        const minMinutes = Number(pretendTimeInput.min)
+        const maxMinutes = Number(pretendTimeInput.max)
+
         if (!usePretendTimeCheckbox.checked) {
-          return realNow
+          return {
+            start: clampMinutes(currentMinutesSinceMidnight(), minMinutes, maxMinutes),
+            end: maxMinutes,
+          }
         }
 
-        const rawMinutes = Number(pretendTimeInput.value)
-        const hour = Math.floor(rawMinutes / 60)
-        const minute = rawMinutes % 60
-
-        if (Number.isNaN(hour) || Number.isNaN(minute)) {
-          return realNow
+        return {
+          start: Number(pretendTimeInput.value),
+          end: Number(pretendEndTimeInput.value),
         }
+      }
+
+      function dateAtMinutes(totalMinutes) {
+        const realNow = new Date()
+        const hour = Math.floor(totalMinutes / 60)
+        const minute = totalMinutes % 60
 
         return new Date(
           realNow.getFullYear(),
@@ -139,18 +238,50 @@
         )
       }
 
-      function refreshPretendTimeStatus() {
-        pretendTimeInput.disabled = !usePretendTimeCheckbox.checked
-        if (usePretendTimeCheckbox.checked) {
-          pretendTimeStatus.textContent = `Planning as if it is ${formatMinutesSinceMidnight(Number(pretendTimeInput.value))}`
-        } else {
-          const activeNow = getEffectiveNow()
-          pretendTimeStatus.textContent = `Using real time (${activeNow.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })})`
+      function selectedDateBounds() {
+        const bounds = selectedTimeBounds()
+        return {
+          start: dateAtMinutes(bounds.start),
+          end: dateAtMinutes(bounds.end),
         }
       }
 
+      function refreshTimeWindowSliderUi() {
+        const min = Number(pretendTimeInput.min)
+        const max = Number(pretendTimeInput.max)
+        const start = Number(pretendTimeInput.value)
+        const end = Number(pretendEndTimeInput.value)
+        const span = max - min
+
+        if (span <= 0) {
+          timeWindowRange.style.left = '0%'
+          timeWindowRange.style.right = '0%'
+          return
+        }
+
+        const left = ((start - min) / span) * 100
+        const right = 100 - (((end - min) / span) * 100)
+        timeWindowRange.style.left = `${left}%`
+        timeWindowRange.style.right = `${right}%`
+      }
+
+      function refreshPretendTimeStatus() {
+        pretendTimeInput.disabled = !usePretendTimeCheckbox.checked
+        pretendEndTimeInput.disabled = !usePretendTimeCheckbox.checked
+        timeWindowSlider.classList.toggle('disabled', !usePretendTimeCheckbox.checked)
+
+        const bounds = selectedTimeBounds()
+        if (usePretendTimeCheckbox.checked) {
+          pretendTimeStatus.textContent = `Showing gigs from ${formatMinutesSinceMidnight(bounds.start)} to ${formatMinutesSinceMidnight(bounds.end)}`
+        } else {
+          pretendTimeStatus.textContent = `Using real time (${formatMinutesSinceMidnight(bounds.start)}) through ${formatMinutesSinceMidnight(bounds.end)}`
+        }
+
+        refreshTimeWindowSliderUi()
+      }
+
       function gigStartTime(gig) {
-        const now = getEffectiveNow()
+        const now = new Date()
         return new Date(
           now.getFullYear(),
           now.getMonth(),
@@ -160,6 +291,12 @@
           0,
           0,
         )
+      }
+
+      function gigOverlapsSelectedWindow(gig, dateBounds) {
+        const gigStartsAt = gigStartTime(gig)
+        const gigEndsAt = gigEndTime(gig)
+        return gigEndsAt >= dateBounds.start && gigStartsAt <= dateBounds.end
       }
       function gigEndTime(gig) {
         const msPerMinute = 60 * 1000
@@ -224,12 +361,12 @@
       }
 
       function resetMarkers() {
-        const now = getEffectiveNow();
+        const dateBounds = selectedDateBounds();
         for (porchid in porches) {
-          const activeOrUpcomingGigsForPorch = Object.values(gigs).filter(gig => {
-            return gig.bandid !== null && gigEndTime(gig) >= now && gig.porchid === porchid
+          const gigsForPorchInWindow = Object.values(gigs).filter(gig => {
+            return gig.bandid !== null && gig.porchid === porchid && gigOverlapsSelectedWindow(gig, dateBounds)
           })
-          if (activeOrUpcomingGigsForPorch.length) {
+          if (gigsForPorchInWindow.length) {
             markersByPorchId[porchid].setOpacity(1)
           } else {
             markersByPorchId[porchid].setOpacity(0.3)
@@ -240,7 +377,7 @@
       function resetGigs() {
         const viewBounds = map.getBounds()
         let gigsText = "";
-        const now = getEffectiveNow();
+        const dateBounds = selectedDateBounds();
         let anchorGigElementId = null;
 
         for (const gigid of sortedGigIds()) {
@@ -255,8 +392,12 @@
           }
 
           const gigStartsAt = gigStartTime(gig)
+          if (!gigOverlapsSelectedWindow(gig, dateBounds)) {
+            continue
+          }
+
           const gigRowId = `gig-row-${gigid}`
-          if (!anchorGigElementId && gigStartsAt >= now) {
+          if (!anchorGigElementId && gigStartsAt >= dateBounds.start) {
             anchorGigElementId = gigRowId
           }
 
@@ -356,7 +497,11 @@
       const bounds = scheduleBounds()
       pretendTimeInput.min = String(bounds.min)
       pretendTimeInput.max = String(bounds.max)
-      pretendTimeInput.value = String(clampMinutes(toMinutesSinceMidnight(new Date()), bounds.min, bounds.max))
+      pretendEndTimeInput.min = String(bounds.min)
+      pretendEndTimeInput.max = String(bounds.max)
+
+      pretendTimeInput.value = String(bounds.min)
+      pretendEndTimeInput.value = String(bounds.max)
       refreshPretendTimeStatus()
 
       usePretendTimeCheckbox.addEventListener('change', () => {
@@ -365,6 +510,21 @@
       })
 
       pretendTimeInput.addEventListener('input', () => {
+        const startMinutes = Number(pretendTimeInput.value)
+        const endMinutes = Number(pretendEndTimeInput.value)
+        if (startMinutes > endMinutes) {
+          pretendEndTimeInput.value = String(startMinutes)
+        }
+        refreshPretendTimeStatus()
+        update()
+      })
+
+      pretendEndTimeInput.addEventListener('input', () => {
+        const startMinutes = Number(pretendTimeInput.value)
+        const endMinutes = Number(pretendEndTimeInput.value)
+        if (endMinutes < startMinutes) {
+          pretendTimeInput.value = String(endMinutes)
+        }
         refreshPretendTimeStatus()
         update()
       })
