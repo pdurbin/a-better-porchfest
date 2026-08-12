@@ -138,20 +138,20 @@
   <body>
     <div class="controls">
       <label>
-        <input id="use-pretend-time" type="checkbox" checked />
-        Pretend time
+        <input id="planning-mode" type="checkbox" checked />
+        Planning mode
       </label>
       <div class="time-window">
         <span class="time-label">Start time</span>
         <div id="time-window-slider" class="dual-slider">
           <div class="slider-track"></div>
           <div id="time-window-range" class="slider-range"></div>
-          <input id="pretend-time" type="range" min="0" max="1439" step="10" />
-          <input id="pretend-end-time" type="range" min="0" max="1439" step="10" />
+          <input id="planning-start-time" type="range" min="0" max="1439" step="10" />
+          <input id="planning-end-time" type="range" min="0" max="1439" step="10" />
         </div>
         <span class="time-label">End time</span>
       </div>
-      <span id="pretend-time-status" class="status"></span>
+      <span id="planning-time-status" class="status"></span>
     </div>
 
     <!-- Map -->
@@ -164,12 +164,12 @@
     <script>
       const map = L.map('map').setView([42.338504, -71.125672], 14)
       const markersByPorchId = {};
-      const usePretendTimeCheckbox = document.getElementById('use-pretend-time');
-      const pretendTimeInput = document.getElementById('pretend-time');
-      const pretendEndTimeInput = document.getElementById('pretend-end-time');
+      const planningModeCheckbox = document.getElementById('planning-mode');
+      const planningStartTimeInput = document.getElementById('planning-start-time');
+      const planningEndTimeInput = document.getElementById('planning-end-time');
       const timeWindowSlider = document.getElementById('time-window-slider');
       const timeWindowRange = document.getElementById('time-window-range');
-      const pretendTimeStatus = document.getElementById('pretend-time-status');
+      const planningTimeStatus = document.getElementById('planning-time-status');
 
       L.maplibreGL({
         style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -210,10 +210,10 @@
       }
 
       function selectedTimeBounds() {
-        const minMinutes = Number(pretendTimeInput.min)
-        const maxMinutes = Number(pretendTimeInput.max)
+        const minMinutes = Number(planningStartTimeInput.min)
+        const maxMinutes = Number(planningStartTimeInput.max)
 
-        if (!usePretendTimeCheckbox.checked) {
+        if (!planningModeCheckbox.checked) {
           return {
             start: clampMinutes(currentMinutesSinceMidnight(), minMinutes, maxMinutes),
             end: maxMinutes,
@@ -221,8 +221,8 @@
         }
 
         return {
-          start: Number(pretendTimeInput.value),
-          end: Number(pretendEndTimeInput.value),
+          start: Number(planningStartTimeInput.value),
+          end: Number(planningEndTimeInput.value),
         }
       }
 
@@ -251,10 +251,10 @@
       }
 
       function refreshTimeWindowSliderUi() {
-        const min = Number(pretendTimeInput.min)
-        const max = Number(pretendTimeInput.max)
-        const start = Number(pretendTimeInput.value)
-        const end = Number(pretendEndTimeInput.value)
+        const min = Number(planningStartTimeInput.min)
+        const max = Number(planningStartTimeInput.max)
+        const start = Number(planningStartTimeInput.value)
+        const end = Number(planningEndTimeInput.value)
         const span = max - min
 
         if (span <= 0) {
@@ -269,25 +269,25 @@
         timeWindowRange.style.right = `${right}%`
       }
 
-      function refreshPretendTimeStatus() {
-        pretendTimeInput.disabled = !usePretendTimeCheckbox.checked
-        pretendEndTimeInput.disabled = !usePretendTimeCheckbox.checked
-        timeWindowSlider.classList.toggle('disabled', !usePretendTimeCheckbox.checked)
+      function refreshPlanningModeStatus() {
+        planningStartTimeInput.disabled = !planningModeCheckbox.checked
+        planningEndTimeInput.disabled = !planningModeCheckbox.checked
+        timeWindowSlider.classList.toggle('disabled', !planningModeCheckbox.checked)
 
         const bounds = selectedTimeBounds()
-        if (usePretendTimeCheckbox.checked) {
-          pretendTimeStatus.textContent = `Showing gigs from ${formatMinutesSinceMidnight(bounds.start)} to ${formatMinutesSinceMidnight(bounds.end)}`
+        if (planningModeCheckbox.checked) {
+          planningTimeStatus.textContent = `Planning mode: showing gigs from ${formatMinutesSinceMidnight(bounds.start)} to ${formatMinutesSinceMidnight(bounds.end)}`
         } else {
-          pretendTimeStatus.textContent = `Using real time (${formatMinutesSinceMidnight(bounds.start)}) through ${formatMinutesSinceMidnight(bounds.end)}`
+          planningTimeStatus.textContent = `Live mode: showing gigs from ${formatMinutesSinceMidnight(bounds.start)} to ${formatMinutesSinceMidnight(bounds.end)}`
         }
 
         refreshTimeWindowSliderUi()
       }
 
       function setTimeWindow(startMinutes, endMinutes) {
-        pretendTimeInput.value = String(startMinutes)
-        pretendEndTimeInput.value = String(endMinutes)
-        refreshPretendTimeStatus()
+        planningStartTimeInput.value = String(startMinutes)
+        planningEndTimeInput.value = String(endMinutes)
+        refreshPlanningModeStatus()
         update()
       }
 
@@ -506,49 +506,49 @@
       };
 
       const bounds = scheduleBounds()
-      pretendTimeInput.min = String(bounds.min)
-      pretendTimeInput.max = String(bounds.max)
-      pretendEndTimeInput.min = String(bounds.min)
-      pretendEndTimeInput.max = String(bounds.max)
+      planningStartTimeInput.min = String(bounds.min)
+      planningStartTimeInput.max = String(bounds.max)
+      planningEndTimeInput.min = String(bounds.min)
+      planningEndTimeInput.max = String(bounds.max)
 
-      pretendTimeInput.value = String(bounds.min)
-      pretendEndTimeInput.value = String(bounds.max)
-      refreshPretendTimeStatus()
+      planningStartTimeInput.value = String(bounds.min)
+      planningEndTimeInput.value = String(bounds.max)
+      refreshPlanningModeStatus()
 
-      usePretendTimeCheckbox.addEventListener('change', () => {
-        refreshPretendTimeStatus()
+      planningModeCheckbox.addEventListener('change', () => {
+        refreshPlanningModeStatus()
         update()
       })
 
-      pretendTimeInput.addEventListener('input', () => {
-        const startMinutes = Number(pretendTimeInput.value)
-        const endMinutes = Number(pretendEndTimeInput.value)
+      planningStartTimeInput.addEventListener('input', () => {
+        const startMinutes = Number(planningStartTimeInput.value)
+        const endMinutes = Number(planningEndTimeInput.value)
         if (startMinutes > endMinutes) {
-          pretendEndTimeInput.value = String(startMinutes)
+          planningEndTimeInput.value = String(startMinutes)
         }
-        setTimeWindow(Number(pretendTimeInput.value), Number(pretendEndTimeInput.value))
+        setTimeWindow(Number(planningStartTimeInput.value), Number(planningEndTimeInput.value))
       })
 
-      pretendEndTimeInput.addEventListener('input', () => {
-        const startMinutes = Number(pretendTimeInput.value)
-        const endMinutes = Number(pretendEndTimeInput.value)
+      planningEndTimeInput.addEventListener('input', () => {
+        const startMinutes = Number(planningStartTimeInput.value)
+        const endMinutes = Number(planningEndTimeInput.value)
         if (endMinutes < startMinutes) {
-          pretendTimeInput.value = String(endMinutes)
+          planningStartTimeInput.value = String(endMinutes)
         }
-        setTimeWindow(Number(pretendTimeInput.value), Number(pretendEndTimeInput.value))
+        setTimeWindow(Number(planningStartTimeInput.value), Number(planningEndTimeInput.value))
       })
 
       let rangeDragState = null
 
       timeWindowRange.addEventListener('pointerdown', (event) => {
-        if (!usePretendTimeCheckbox.checked || event.button !== 0) {
+        if (!planningModeCheckbox.checked || event.button !== 0) {
           return
         }
 
-        const min = Number(pretendTimeInput.min)
-        const max = Number(pretendTimeInput.max)
-        const start = Number(pretendTimeInput.value)
-        const end = Number(pretendEndTimeInput.value)
+        const min = Number(planningStartTimeInput.min)
+        const max = Number(planningStartTimeInput.max)
+        const start = Number(planningStartTimeInput.value)
+        const end = Number(planningEndTimeInput.value)
         const width = timeWindowSlider.getBoundingClientRect().width
 
         if (!Number.isFinite(width) || width <= 0) {
@@ -564,7 +564,7 @@
           start,
           end,
           span: end - start,
-          step: Number(pretendTimeInput.step) || 1,
+          step: Number(planningStartTimeInput.step) || 1,
         }
 
         timeWindowSlider.classList.add('dragging')
