@@ -26,6 +26,7 @@
         flex-wrap: wrap;
       }
       .controls label { font-size: 14px; }
+      .controls button { font-size: 14px; }
       .controls input[type="range"] { width: 220px; }
       .time-window {
         display: inline-grid;
@@ -120,6 +121,13 @@
       .dual-slider.disabled {
         opacity: 0.55;
       }
+      .play-window-button {
+        padding: 4px 10px;
+        border: 1px solid #b9c0c8;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+      }
       .gig-entry {
         position: relative; /* anchor for overlay */
         margin: 6px 0;
@@ -169,6 +177,8 @@
         <span id="planning-start-time-value" class="time-value time-value-start"></span>
         <span id="planning-end-time-value" class="time-value time-value-end"></span>
       </div>
+      <button id="play-window" class="play-window-button" type="button">▶ Play</button>
+      <button id="reset-window" class="play-window-button" type="button">↺ Reset</button>
     </div>
 
     <!-- Map -->
@@ -186,8 +196,13 @@
       const planningEndTimeInput = document.getElementById('planning-end-time');
       const planningStartTimeValue = document.getElementById('planning-start-time-value');
       const planningEndTimeValue = document.getElementById('planning-end-time-value');
+      const playWindowButton = document.getElementById('play-window');
+      const resetWindowButton = document.getElementById('reset-window');
       const timeWindowSlider = document.getElementById('time-window-slider');
       const timeWindowRange = document.getElementById('time-window-range');
+      const oneHourMinutes = 60
+      const playbackTickMs = 800
+      let playbackIntervalId = null
 
       L.maplibreGL({
         style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -304,6 +319,62 @@
         planningEndTimeInput.value = String(endMinutes)
         refreshPlanningModeStatus()
         update()
+      }
+
+      function resetPlaybackWindow() {
+        const min = Number(planningStartTimeInput.min)
+        const max = Number(planningStartTimeInput.max)
+        const playbackSpan = Math.min(oneHourMinutes, max - min)
+        setTimeWindow(min, min + playbackSpan)
+      }
+
+      function stopWindowPlayback() {
+        if (playbackIntervalId !== null) {
+          clearInterval(playbackIntervalId)
+          playbackIntervalId = null
+        }
+        playWindowButton.textContent = '▶ Play'
+      }
+
+      function startWindowPlayback() {
+        const min = Number(planningStartTimeInput.min)
+        const max = Number(planningStartTimeInput.max)
+        const maxSpan = max - min
+        if (maxSpan <= 0) {
+          return
+        }
+
+        const playbackSpan = Math.min(oneHourMinutes, maxSpan)
+        const step = Number(planningStartTimeInput.step) || 1
+
+        planningModeCheckbox.checked = true
+
+        let start = Number(planningStartTimeInput.value)
+        let end = start + playbackSpan
+
+        if (end > max) {
+          end = max
+          start = max - playbackSpan
+        }
+
+        setTimeWindow(start, end)
+
+        stopWindowPlayback()
+        playWindowButton.textContent = '⏸ Pause'
+        playbackIntervalId = setInterval(() => {
+          const currentStart = Number(planningStartTimeInput.value)
+          const currentEnd = Number(planningEndTimeInput.value)
+          const currentSpan = currentEnd - currentStart
+          const nextStart = currentStart + step
+          const nextEnd = nextStart + currentSpan
+
+          if (nextEnd > max) {
+            stopWindowPlayback()
+            return
+          }
+
+          setTimeWindow(nextStart, nextEnd)
+        }, playbackTickMs)
       }
 
       function gigStartTime(gig) {
@@ -529,13 +600,18 @@
       planningStartTimeInput.value = String(bounds.min)
       planningEndTimeInput.value = String(bounds.max)
       refreshPlanningModeStatus()
+      stopWindowPlayback()
 
       planningModeCheckbox.addEventListener('change', () => {
+        if (!planningModeCheckbox.checked) {
+          stopWindowPlayback()
+        }
         refreshPlanningModeStatus()
         update()
       })
 
       planningStartTimeInput.addEventListener('input', () => {
+        stopWindowPlayback()
         const startMinutes = Number(planningStartTimeInput.value)
         const endMinutes = Number(planningEndTimeInput.value)
         if (startMinutes > endMinutes) {
@@ -545,6 +621,7 @@
       })
 
       planningEndTimeInput.addEventListener('input', () => {
+        stopWindowPlayback()
         const startMinutes = Number(planningStartTimeInput.value)
         const endMinutes = Number(planningEndTimeInput.value)
         if (endMinutes < startMinutes) {
@@ -559,6 +636,8 @@
         if (!planningModeCheckbox.checked || event.button !== 0) {
           return
         }
+
+        stopWindowPlayback()
 
         const min = Number(planningStartTimeInput.min)
         const max = Number(planningStartTimeInput.max)
@@ -624,6 +703,20 @@
 
       timeWindowRange.addEventListener('pointerup', stopRangeDrag)
       timeWindowRange.addEventListener('pointercancel', stopRangeDrag)
+
+      playWindowButton.addEventListener('click', () => {
+        if (playbackIntervalId !== null) {
+          stopWindowPlayback()
+          return
+        }
+        startWindowPlayback()
+      })
+
+      resetWindowButton.addEventListener('click', () => {
+        planningModeCheckbox.checked = true
+        stopWindowPlayback()
+        resetPlaybackWindow()
+      })
 
       addMarkers()
 
