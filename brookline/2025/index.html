@@ -26,17 +26,31 @@
         flex-wrap: wrap;
       }
       .controls label { font-size: 14px; }
-      .controls .status { font-size: 13px; color: #444; }
       .controls input[type="range"] { width: 220px; }
       .time-window {
-        display: inline-flex;
+        display: inline-grid;
+        grid-template-columns: auto 260px auto;
+        grid-template-rows: auto auto;
+        column-gap: 6px;
+        row-gap: 4px;
         align-items: center;
-        gap: 6px;
+      }
+      .time-window-center {
+        grid-column: 2;
+        grid-row: 1;
       }
       .time-window .time-label {
         font-size: 14px;
         white-space: nowrap;
       }
+      .time-window .time-label-start { grid-column: 1; grid-row: 1; }
+      .time-window .time-label-end { grid-column: 3; grid-row: 1; justify-self: end; }
+      .time-window .time-value {
+        font-size: 12px;
+        color: #555;
+      }
+      .time-window .time-value-start { grid-column: 1; grid-row: 2; }
+      .time-window .time-value-end { grid-column: 3; grid-row: 2; justify-self: end; }
       .dual-slider {
         position: relative;
         width: 260px;
@@ -142,16 +156,19 @@
         Planning mode
       </label>
       <div class="time-window">
-        <span class="time-label">Start time</span>
-        <div id="time-window-slider" class="dual-slider">
-          <div class="slider-track"></div>
-          <div id="time-window-range" class="slider-range"></div>
-          <input id="planning-start-time" type="range" min="0" max="1439" step="10" />
-          <input id="planning-end-time" type="range" min="0" max="1439" step="10" />
+        <span class="time-label time-label-start">Start time</span>
+        <div class="time-window-center">
+          <div id="time-window-slider" class="dual-slider">
+            <div class="slider-track"></div>
+            <div id="time-window-range" class="slider-range"></div>
+            <input id="planning-start-time" type="range" min="0" max="1439" step="10" />
+            <input id="planning-end-time" type="range" min="0" max="1439" step="10" />
+          </div>
         </div>
-        <span class="time-label">End time</span>
+        <span class="time-label time-label-end">End time</span>
+        <span id="planning-start-time-value" class="time-value time-value-start"></span>
+        <span id="planning-end-time-value" class="time-value time-value-end"></span>
       </div>
-      <span id="planning-time-status" class="status"></span>
     </div>
 
     <!-- Map -->
@@ -167,9 +184,10 @@
       const planningModeCheckbox = document.getElementById('planning-mode');
       const planningStartTimeInput = document.getElementById('planning-start-time');
       const planningEndTimeInput = document.getElementById('planning-end-time');
+      const planningStartTimeValue = document.getElementById('planning-start-time-value');
+      const planningEndTimeValue = document.getElementById('planning-end-time-value');
       const timeWindowSlider = document.getElementById('time-window-slider');
       const timeWindowRange = document.getElementById('time-window-range');
-      const planningTimeStatus = document.getElementById('planning-time-status');
 
       L.maplibreGL({
         style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -255,6 +273,10 @@
         const max = Number(planningStartTimeInput.max)
         const start = Number(planningStartTimeInput.value)
         const end = Number(planningEndTimeInput.value)
+
+        planningStartTimeValue.textContent = formatMinutesSinceMidnight(start)
+        planningEndTimeValue.textContent = formatMinutesSinceMidnight(end)
+
         const span = max - min
 
         if (span <= 0) {
@@ -273,13 +295,6 @@
         planningStartTimeInput.disabled = !planningModeCheckbox.checked
         planningEndTimeInput.disabled = !planningModeCheckbox.checked
         timeWindowSlider.classList.toggle('disabled', !planningModeCheckbox.checked)
-
-        const bounds = selectedTimeBounds()
-        if (planningModeCheckbox.checked) {
-          planningTimeStatus.textContent = `Planning mode: showing gigs from ${formatMinutesSinceMidnight(bounds.start)} to ${formatMinutesSinceMidnight(bounds.end)}`
-        } else {
-          planningTimeStatus.textContent = `Live mode: showing gigs from ${formatMinutesSinceMidnight(bounds.start)} to ${formatMinutesSinceMidnight(bounds.end)}`
-        }
 
         refreshTimeWindowSliderUi()
       }
