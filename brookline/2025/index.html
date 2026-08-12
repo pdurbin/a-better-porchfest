@@ -128,6 +128,19 @@
         background: #fff;
         cursor: pointer;
       }
+      .porch-status-tooltip {
+        background: #fff;
+        border: 1px solid #2276f3;
+        color: #1f2d3d;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 6px;
+        border-radius: 999px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+      }
+      .porch-status-tooltip:before {
+        border-top-color: #2276f3;
+      }
       .gig-entry {
         position: relative; /* anchor for overlay */
         margin: 6px 0;
@@ -203,10 +216,45 @@
       const oneHourMinutes = 60
       const playbackTickMs = 800
       let playbackIntervalId = null
+      let popupZIndexCounter = 1000
+      let tooltipZIndexCounter = 2000
+      let markerZIndexCounter = 3000
 
       L.maplibreGL({
         style: 'https://tiles.openfreemap.org/styles/liberty',
       }).addTo(map)
+
+      function raisePopupAboveOthers(popup) {
+        if (!popup) {
+          return
+        }
+
+        const popupElement = popup.getElement()
+        if (!popupElement) {
+          return
+        }
+
+        popupZIndexCounter += 1
+        popupElement.style.zIndex = String(popupZIndexCounter)
+      }
+
+      function raiseTooltipAboveOthers(tooltip) {
+        if (!tooltip) {
+          return
+        }
+
+        const tooltipElement = tooltip.getElement()
+        if (!tooltipElement) {
+          return
+        }
+
+        tooltipZIndexCounter += 1
+        tooltipElement.style.zIndex = String(tooltipZIndexCounter)
+      }
+
+      map.on('popupopen', (event) => {
+        raisePopupAboveOthers(event.popup)
+      })
 
       function toMinutesSinceMidnight(date) {
         return (date.getHours() * 60) + date.getMinutes()
@@ -419,9 +467,38 @@
         resetMarkers()
       }
 
-      function renderPorchPopup(porchid) {
+      function porchWindowState(porchid, dateBounds) {
+        const now = dateBounds.start
+        let nowPlayingGig = null
+
+        for (const gig of Object.values(gigs)) {
+          if (gig.bandid === null || gig.porchid !== porchid) {
+            continue
+          }
+
+          const startsAt = gigStartTime(gig)
+          const endsAt = gigEndTime(gig)
+
+          if (!nowPlayingGig && startsAt <= now && endsAt > now) {
+            nowPlayingGig = gig
+          }
+        }
+
+        return { nowPlayingGig }
+      }
+
+      function renderPorchPopup(porchid, dateBounds = selectedDateBounds()) {
         const porch = porches[porchid]
         const shortAddress = porch.address.replace(/,\s*Brookline,\s*MA\s*$/i, '')
+        const { nowPlayingGig } = porchWindowState(porchid, dateBounds)
+
+        let statusHtml = ''
+        if (nowPlayingGig) {
+          const band = bands[nowPlayingGig.bandid]
+          const name = band && band.actname ? band.actname : 'Unknown band'
+          statusHtml = `<div style="margin-top:8px;"><strong>Now playing:</strong> ${name}</div>`
+        }
+
         const porchGigs = sortedGigIds()
           .map(gigid => gigs[gigid])
           .filter(gig => gig.bandid !== null && gig.porchid === porchid)
@@ -436,9 +513,22 @@
         return `
           <div>
             <strong>${shortAddress}</strong>
+            ${statusHtml}
             ${scheduleHtml ? `<div style="margin-top:8px;">${scheduleHtml}</div>` : `<div style="margin-top:8px;">No listed performances.</div>`}
           </div>
         `
+      }
+
+      function renderPorchStatusLabel(porchid, dateBounds) {
+        const { nowPlayingGig } = porchWindowState(porchid, dateBounds)
+        if (nowPlayingGig) {
+          const band = bands[nowPlayingGig.bandid]
+          const name = band && band.actname ? band.actname : 'Unknown band'
+          const start = gigStartTime(nowPlayingGig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+          return `${start}: ${name}`
+        }
+
+        return ''
       }
 
       function addMarkers() {
@@ -460,6 +550,40 @@
       function resetMarkers() {
         const dateBounds = selectedDateBounds();
         for (porchid in porches) {
+          const marker = markersByPorchId[porchid]
+          if (marker && marker.getPopup()) {
+            marker.getPopup().setContent(renderPorchPopup(porchid, dateBounds))
+          }
+
+          const statusLabel = renderPorchStatusLabel(porchid, dateBounds)
+          if (statusLabel) {
+            if (!marker.getTooltip()) {
+              marker.bindTooltip(statusLabel, {
+                permanent: true,
+                direction: 'top',
+                offset: [0, -10],
+                className: 'porch-status-tooltip',
+              })
+              marker.openTooltip()
+              raiseTooltipAboveOthers(marker.getTooltip())
+              markerZIndexCounter += 1
+              marker.setZIndexOffset(markerZIndexCounter)
+            } else {
+              const previousStatusLabel = marker._statusLabelText || ''
+              marker.getTooltip().setContent(statusLabel)
+              if (previousStatusLabel !== statusLabel) {
+                raiseTooltipAboveOthers(marker.getTooltip())
+                markerZIndexCounter += 1
+                marker.setZIndexOffset(markerZIndexCounter)
+              }
+            }
+            marker._statusLabelText = statusLabel
+          } else if (marker.getTooltip()) {
+            marker.unbindTooltip()
+            marker._statusLabelText = ''
+            marker.setZIndexOffset(0)
+          }
+
           const gigsForPorchInWindow = Object.values(gigs).filter(gig => {
             return gig.bandid !== null && gig.porchid === porchid && gigOverlapsSelectedWindow(gig, dateBounds)
           })
@@ -561,6 +685,7 @@
 
         if (marker) {
           marker.openPopup();
+          raisePopupAboveOthers(marker.getPopup())
         }
 
         // Insert under this gig row
