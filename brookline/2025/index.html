@@ -57,7 +57,11 @@
       }
       .dual-slider .slider-range {
         background: #2276f3;
+        cursor: grab;
+        pointer-events: auto;
+        touch-action: none;
       }
+      .dual-slider.dragging .slider-range { cursor: grabbing; }
       .dual-slider input[type="range"] {
         position: absolute;
         left: 0;
@@ -278,6 +282,13 @@
         }
 
         refreshTimeWindowSliderUi()
+      }
+
+      function setTimeWindow(startMinutes, endMinutes) {
+        pretendTimeInput.value = String(startMinutes)
+        pretendEndTimeInput.value = String(endMinutes)
+        refreshPretendTimeStatus()
+        update()
       }
 
       function gigStartTime(gig) {
@@ -515,8 +526,7 @@
         if (startMinutes > endMinutes) {
           pretendEndTimeInput.value = String(startMinutes)
         }
-        refreshPretendTimeStatus()
-        update()
+        setTimeWindow(Number(pretendTimeInput.value), Number(pretendEndTimeInput.value))
       })
 
       pretendEndTimeInput.addEventListener('input', () => {
@@ -525,9 +535,80 @@
         if (endMinutes < startMinutes) {
           pretendTimeInput.value = String(endMinutes)
         }
-        refreshPretendTimeStatus()
-        update()
+        setTimeWindow(Number(pretendTimeInput.value), Number(pretendEndTimeInput.value))
       })
+
+      let rangeDragState = null
+
+      timeWindowRange.addEventListener('pointerdown', (event) => {
+        if (!usePretendTimeCheckbox.checked || event.button !== 0) {
+          return
+        }
+
+        const min = Number(pretendTimeInput.min)
+        const max = Number(pretendTimeInput.max)
+        const start = Number(pretendTimeInput.value)
+        const end = Number(pretendEndTimeInput.value)
+        const width = timeWindowSlider.getBoundingClientRect().width
+
+        if (!Number.isFinite(width) || width <= 0) {
+          return
+        }
+
+        rangeDragState = {
+          pointerId: event.pointerId,
+          originX: event.clientX,
+          min,
+          max,
+          width,
+          start,
+          end,
+          span: end - start,
+          step: Number(pretendTimeInput.step) || 1,
+        }
+
+        timeWindowSlider.classList.add('dragging')
+        timeWindowRange.setPointerCapture(event.pointerId)
+        event.preventDefault()
+      })
+
+      timeWindowRange.addEventListener('pointermove', (event) => {
+        if (!rangeDragState || rangeDragState.pointerId !== event.pointerId) {
+          return
+        }
+
+        const deltaX = event.clientX - rangeDragState.originX
+        const totalMinutes = rangeDragState.max - rangeDragState.min
+        const rawDeltaMinutes = (deltaX / rangeDragState.width) * totalMinutes
+        const snappedDeltaMinutes = Math.round(rawDeltaMinutes / rangeDragState.step) * rangeDragState.step
+
+        let nextStart = rangeDragState.start + snappedDeltaMinutes
+        let nextEnd = rangeDragState.end + snappedDeltaMinutes
+
+        if (nextStart < rangeDragState.min) {
+          nextStart = rangeDragState.min
+          nextEnd = rangeDragState.min + rangeDragState.span
+        }
+
+        if (nextEnd > rangeDragState.max) {
+          nextEnd = rangeDragState.max
+          nextStart = rangeDragState.max - rangeDragState.span
+        }
+
+        setTimeWindow(nextStart, nextEnd)
+      })
+
+      function stopRangeDrag(event) {
+        if (!rangeDragState || rangeDragState.pointerId !== event.pointerId) {
+          return
+        }
+
+        rangeDragState = null
+        timeWindowSlider.classList.remove('dragging')
+      }
+
+      timeWindowRange.addEventListener('pointerup', stopRangeDrag)
+      timeWindowRange.addEventListener('pointercancel', stopRangeDrag)
 
       addMarkers()
 
