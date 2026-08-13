@@ -717,13 +717,17 @@
       };
 
       const bounds = scheduleBounds()
-      planningStartTimeInput.min = String(bounds.min)
+      const sliderStepMinutes = Number(planningStartTimeInput.step) || 10
+      const initialStartMinutes = Math.max(0, bounds.min - sliderStepMinutes)
+      const initialEndMinutes = Math.min(bounds.max, initialStartMinutes + 60)
+
+      planningStartTimeInput.min = String(initialStartMinutes)
       planningStartTimeInput.max = String(bounds.max)
-      planningEndTimeInput.min = String(bounds.min)
+      planningEndTimeInput.min = String(initialStartMinutes)
       planningEndTimeInput.max = String(bounds.max)
 
-      planningStartTimeInput.value = String(bounds.min)
-      planningEndTimeInput.value = String(bounds.max)
+      planningStartTimeInput.value = String(initialStartMinutes)
+      planningEndTimeInput.value = String(initialEndMinutes)
       refreshPlanningModeStatus()
       stopWindowPlayback()
 
