@@ -218,7 +218,12 @@
       let playbackIntervalId = null
       let popupZIndexCounter = 1000
       let tooltipZIndexCounter = 2000
-      let markerZIndexCounter = 3000
+      const porchMarkerColors = {
+        past: '#8B80A8',
+        noUpcoming: '#9CA3AF',
+        upcoming: '#2563EB',
+        nowPlaying: '#16A34A',
+      }
 
       L.maplibreGL({
         style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -273,12 +278,17 @@
         return (Number(gig.starthour) * 60) + Number(gig.startminute)
       }
 
+      function gigEndMinutes(gig) {
+        return gigStartMinutes(gig) + Number(gig.duration)
+      }
+
       function scheduleBounds() {
         const scheduledGigs = Object.values(gigs).filter(gig => gig.bandid !== null)
-        const minutes = scheduledGigs.map(gigStartMinutes)
+        const startMinutes = scheduledGigs.map(gigStartMinutes)
+        const endMinutes = scheduledGigs.map(gigEndMinutes)
         return {
-          min: Math.min(...minutes),
-          max: Math.max(...minutes),
+          min: Math.min(...startMinutes),
+          max: Math.max(...endMinutes) + oneHourMinutes,
         }
       }
 
@@ -531,10 +541,40 @@
         return ''
       }
 
+      function porchMarkerState(porchid, dateBounds) {
+        const porchGigs = Object.values(gigs).filter(gig => {
+          return gig.bandid !== null && gig.porchid === porchid
+        })
+
+        if (!porchGigs.length) {
+          return 'noUpcoming'
+        }
+
+        const { nowPlayingGig } = porchWindowState(porchid, dateBounds)
+        if (nowPlayingGig) {
+          return 'nowPlaying'
+        }
+
+        const hasUpcomingGig = porchGigs.some(gig => gigEndTime(gig) > dateBounds.start)
+        return hasUpcomingGig ? 'upcoming' : 'past'
+      }
+
+      function markerStyleForState(state) {
+        const color = porchMarkerColors[state] || porchMarkerColors.noUpcoming
+        return {
+          color,
+          fillColor: color,
+          weight: 2,
+          opacity: 0.95,
+          fillOpacity: state === 'noUpcoming' ? 0.55 : 0.85,
+          radius: state === 'nowPlaying' ? 8 : 7,
+        }
+      }
+
       function addMarkers() {
         for (porchid in porches) {
           // Creating a marker
-          var marker = new L.Marker([porches[porchid].lat, porches[porchid].lng]);
+          var marker = L.circleMarker([porches[porchid].lat, porches[porchid].lng], markerStyleForState('noUpcoming'));
 
           var popup = L.popup()
             .setContent(renderPorchPopup(porchid));
@@ -566,31 +606,25 @@
               })
               marker.openTooltip()
               raiseTooltipAboveOthers(marker.getTooltip())
-              markerZIndexCounter += 1
-              marker.setZIndexOffset(markerZIndexCounter)
+              marker.bringToFront()
             } else {
               const previousStatusLabel = marker._statusLabelText || ''
               marker.getTooltip().setContent(statusLabel)
               if (previousStatusLabel !== statusLabel) {
                 raiseTooltipAboveOthers(marker.getTooltip())
-                markerZIndexCounter += 1
-                marker.setZIndexOffset(markerZIndexCounter)
+                marker.bringToFront()
               }
             }
             marker._statusLabelText = statusLabel
           } else if (marker.getTooltip()) {
             marker.unbindTooltip()
             marker._statusLabelText = ''
-            marker.setZIndexOffset(0)
           }
 
-          const gigsForPorchInWindow = Object.values(gigs).filter(gig => {
-            return gig.bandid !== null && gig.porchid === porchid && gigOverlapsSelectedWindow(gig, dateBounds)
-          })
-          if (gigsForPorchInWindow.length) {
-            markersByPorchId[porchid].setOpacity(1)
-          } else {
-            markersByPorchId[porchid].setOpacity(0.3)
+          const state = porchMarkerState(porchid, dateBounds)
+          marker.setStyle(markerStyleForState(state))
+          if (state === 'nowPlaying') {
+            marker.bringToFront()
           }
         }
       }
