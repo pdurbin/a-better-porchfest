@@ -57,6 +57,14 @@
         width: 260px;
         height: 22px;
       }
+      .time-window-bounds {
+        width: 260px;
+        margin-top: 2px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        color: #6b7280;
+      }
       .dual-slider .slider-track,
       .dual-slider .slider-range {
         position: absolute;
@@ -185,6 +193,10 @@
             <input id="planning-start-time" type="range" min="0" max="1439" step="10" />
             <input id="planning-end-time" type="range" min="0" max="1439" step="10" />
           </div>
+          <div class="time-window-bounds">
+            <span id="planning-min-time-value"></span>
+            <span id="planning-max-time-value"></span>
+          </div>
         </div>
         <span class="time-label time-label-end">End time</span>
         <span id="planning-start-time-value" class="time-value time-value-start"></span>
@@ -209,6 +221,8 @@
       const planningEndTimeInput = document.getElementById('planning-end-time');
       const planningStartTimeValue = document.getElementById('planning-start-time-value');
       const planningEndTimeValue = document.getElementById('planning-end-time-value');
+      const planningMinTimeValue = document.getElementById('planning-min-time-value');
+      const planningMaxTimeValue = document.getElementById('planning-max-time-value');
       const playWindowButton = document.getElementById('play-window');
       const resetWindowButton = document.getElementById('reset-window');
       const timeWindowSlider = document.getElementById('time-window-slider');
@@ -347,8 +361,10 @@
         const start = Number(planningStartTimeInput.value)
         const end = Number(planningEndTimeInput.value)
 
-        planningStartTimeValue.textContent = formatMinutesSinceMidnight(start)
-        planningEndTimeValue.textContent = formatMinutesSinceMidnight(end)
+        planningStartTimeValue.textContent = formatMinutesSinceMidnight(min)
+        planningEndTimeValue.textContent = formatMinutesSinceMidnight(max)
+        planningMinTimeValue.textContent = formatMinutesSinceMidnight(start)
+        planningMaxTimeValue.textContent = formatMinutesSinceMidnight(end)
 
         const span = max - min
 
@@ -359,7 +375,8 @@
         }
 
         const left = ((start - min) / span) * 100
-        const right = 100 - (((end - min) / span) * 100)
+        const endPercent = ((end - min) / span) * 100
+        const right = 100 - endPercent
         timeWindowRange.style.left = `${left}%`
         timeWindowRange.style.right = `${right}%`
       }
