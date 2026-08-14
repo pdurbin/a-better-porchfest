@@ -149,6 +149,13 @@
       .porch-status-tooltip:before {
         border-top-color: #2276f3;
       }
+      .porch-marker-icon {
+        background: transparent;
+        border: none;
+      }
+      .porch-marker-shape {
+        border: 2px solid rgba(255,255,255,0.92);
+      }
       .popup-schedule-line {
         margin-top: 4px;
         display: flex;
@@ -245,6 +252,7 @@
       let playbackIntervalId = null
       let popupZIndexCounter = 1000
       let tooltipZIndexCounter = 2000
+      let markerZIndexCounter = 3000
       const porchMarkerColors = {
         past: '#8B80A8',
         noUpcoming: '#9CA3AF',
@@ -606,18 +614,67 @@
         const color = porchMarkerColors[state] || porchMarkerColors.noUpcoming
         return {
           color,
-          fillColor: color,
-          weight: 2,
-          opacity: 0.95,
-          fillOpacity: state === 'noUpcoming' ? 0.55 : 0.85,
-          radius: state === 'nowPlaying' ? 8 : 7,
+          opacity: state === 'noUpcoming' ? 0.62 : 0.9,
+          size: state === 'nowPlaying' ? 16 : 14,
         }
       }
 
+      function porchBandCount(porchid) {
+        const bandIds = new Set()
+        for (const gig of Object.values(gigs)) {
+          if (gig.bandid !== null && gig.porchid === porchid) {
+            bandIds.add(gig.bandid)
+          }
+        }
+        return bandIds.size
+      }
+
+      function shapeForBandCount(count) {
+        return count <= 1 ? 'circle' : 'pill'
+      }
+
+      function raiseMarker(marker) {
+        markerZIndexCounter += 1
+        marker.setZIndexOffset(markerZIndexCounter)
+      }
+
+      function updatePorchMarkerVisual(marker, state, bandCount) {
+        const markerElement = marker.getElement()
+        if (!markerElement) {
+          return
+        }
+
+        const shapeElement = markerElement.querySelector('.porch-marker-shape')
+        if (!shapeElement) {
+          return
+        }
+
+        const style = markerStyleForState(state)
+        const shape = shapeForBandCount(bandCount)
+        const extraBands = Math.max(0, bandCount - 1)
+        const pillScale = Math.min(2.2, 1.2 + (extraBands * 0.22))
+        const width = shape === 'pill' ? Math.round(style.size * pillScale) : style.size
+        const height = style.size
+        shapeElement.style.width = `${width}px`
+        shapeElement.style.height = `${height}px`
+        shapeElement.style.backgroundColor = style.color
+        shapeElement.style.opacity = String(style.opacity)
+        shapeElement.style.borderRadius = shape === 'pill' ? '999px' : '50%'
+        shapeElement.style.clipPath = 'none'
+        shapeElement.title = `${bandCount} band${bandCount === 1 ? '' : 's'}`
+      }
+
       function addMarkers() {
-        for (porchid in porches) {
-          // Creating a marker
-          var marker = L.circleMarker([porches[porchid].lat, porches[porchid].lng], markerStyleForState('noUpcoming'));
+        for (const porchid in porches) {
+          const marker = L.marker([porches[porchid].lat, porches[porchid].lng], {
+            icon: L.divIcon({
+              className: 'porch-marker-icon',
+              html: '<div class="porch-marker-shape"></div>',
+              iconSize: [20, 20],
+              iconAnchor: [10, 10],
+              popupAnchor: [0, -10],
+            }),
+          })
 
           var popup = L.popup()
             .setContent(renderPorchPopup(porchid));
@@ -626,13 +683,14 @@
 
           // Adding marker to the map
           marker.addTo(map)
+          updatePorchMarkerVisual(marker, 'noUpcoming', porchBandCount(porchid))
           markersByPorchId[porchid] = marker
         }
       }
 
       function resetMarkers() {
         const dateBounds = selectedDateBounds();
-        for (porchid in porches) {
+        for (const porchid in porches) {
           const marker = markersByPorchId[porchid]
           if (marker && marker.getPopup()) {
             marker.getPopup().setContent(renderPorchPopup(porchid, dateBounds))
@@ -649,13 +707,13 @@
               })
               marker.openTooltip()
               raiseTooltipAboveOthers(marker.getTooltip())
-              marker.bringToFront()
+              raiseMarker(marker)
             } else {
               const previousStatusLabel = marker._statusLabelText || ''
               marker.getTooltip().setContent(statusLabel)
               if (previousStatusLabel !== statusLabel) {
                 raiseTooltipAboveOthers(marker.getTooltip())
-                marker.bringToFront()
+                raiseMarker(marker)
               }
             }
             marker._statusLabelText = statusLabel
@@ -665,9 +723,9 @@
           }
 
           const state = porchMarkerState(porchid, dateBounds)
-          marker.setStyle(markerStyleForState(state))
+          updatePorchMarkerVisual(marker, state, porchBandCount(porchid))
           if (state === 'nowPlaying') {
-            marker.bringToFront()
+            raiseMarker(marker)
           }
         }
       }
