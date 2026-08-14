@@ -149,6 +149,19 @@
       .porch-status-tooltip:before {
         border-top-color: #2276f3;
       }
+      .popup-schedule-line {
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .popup-schedule-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        display: inline-block;
+        flex: 0 0 auto;
+      }
       .gig-entry {
         position: relative; /* anchor for overlay */
         margin: 6px 0;
@@ -528,14 +541,7 @@
       function renderPorchPopup(porchid, dateBounds = selectedDateBounds()) {
         const porch = porches[porchid]
         const shortAddress = porch.address.replace(/,\s*Brookline,\s*MA\s*$/i, '')
-        const { nowPlayingGig } = porchWindowState(porchid, dateBounds)
-
-        let statusHtml = ''
-        if (nowPlayingGig) {
-          const band = bands[nowPlayingGig.bandid]
-          const name = band && band.actname ? band.actname : 'Unknown band'
-          statusHtml = `<div style="margin-top:8px;"><strong>Now playing:</strong> ${name}</div>`
-        }
+        const now = dateBounds.start
 
         const porchGigs = sortedGigIds()
           .map(gigid => gigs[gigid])
@@ -545,13 +551,22 @@
           const band = bands[gig.bandid]
           const start = gigStartTime(gig).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
           const name = band && band.actname ? band.actname : 'Unknown band'
-          return `<div style="margin-top:4px;">${start} — ${name}</div>`
+          const startsAt = gigStartTime(gig)
+          const endsAt = gigEndTime(gig)
+          let dotColor = porchMarkerColors.noUpcoming
+          if (startsAt <= now && endsAt > now) {
+            dotColor = porchMarkerColors.nowPlaying
+          } else if (endsAt <= now) {
+            dotColor = porchMarkerColors.past
+          } else {
+            dotColor = porchMarkerColors.upcoming
+          }
+          return `<div class="popup-schedule-line"><span class="popup-schedule-dot" style="background:${dotColor};"></span><span>${start} — ${name}</span></div>`
         }).join('')
 
         return `
           <div>
             <strong>${shortAddress}</strong>
-            ${statusHtml}
             ${scheduleHtml ? `<div style="margin-top:8px;">${scheduleHtml}</div>` : `<div style="margin-top:8px;">No listed performances.</div>`}
           </div>
         `
