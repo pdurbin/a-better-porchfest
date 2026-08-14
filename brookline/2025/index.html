@@ -451,7 +451,7 @@
       function gigOverlapsSelectedWindow(gig, dateBounds) {
         const gigStartsAt = gigStartTime(gig)
         const gigEndsAt = gigEndTime(gig)
-        return gigEndsAt >= dateBounds.start && gigStartsAt <= dateBounds.end
+        return gigEndsAt > dateBounds.start && gigStartsAt < dateBounds.end
       }
       function gigEndTime(gig) {
         const msPerMinute = 60 * 1000
