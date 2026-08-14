@@ -288,6 +288,13 @@
         return formattedDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
       }
 
+      function formatRoundedHourMinutes(totalMinutes) {
+        const minutesInDay = 24 * 60
+        const normalized = ((totalMinutes % minutesInDay) + minutesInDay) % minutesInDay
+        const rounded = Math.round(normalized / 60) * 60
+        return formatMinutesSinceMidnight(rounded)
+      }
+
       function gigStartMinutes(gig) {
         return (Number(gig.starthour) * 60) + Number(gig.startminute)
       }
@@ -361,8 +368,8 @@
         const start = Number(planningStartTimeInput.value)
         const end = Number(planningEndTimeInput.value)
 
-        planningStartTimeValue.textContent = formatMinutesSinceMidnight(min)
-        planningEndTimeValue.textContent = formatMinutesSinceMidnight(max)
+        planningStartTimeValue.textContent = formatRoundedHourMinutes(min)
+        planningEndTimeValue.textContent = formatRoundedHourMinutes(max)
         planningMinTimeValue.textContent = formatMinutesSinceMidnight(start)
         planningMaxTimeValue.textContent = formatMinutesSinceMidnight(end)
 
@@ -770,7 +777,7 @@
       const bounds = scheduleBounds()
       const sliderStepMinutes = Number(planningStartTimeInput.step) || 10
       const initialStartMinutes = Math.max(0, bounds.min - sliderStepMinutes)
-      const initialEndMinutes = Math.min(bounds.max, initialStartMinutes + 60)
+      const initialEndMinutes = Math.min(bounds.max, initialStartMinutes + oneHourMinutes)
 
       planningStartTimeInput.min = String(initialStartMinutes)
       planningStartTimeInput.max = String(bounds.max)
