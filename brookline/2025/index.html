@@ -259,6 +259,43 @@
         upcoming: '#2563EB',
         nowPlaying: '#16A34A',
       }
+      const porchStats = computePorchStats()
+
+      function computePorchStats() {
+        const bandCountByPorch = {}
+        const totalMinutesByPorch = {}
+        const bandIdsByPorch = {}
+
+        for (const porchid in porches) {
+          bandIdsByPorch[porchid] = new Set()
+          totalMinutesByPorch[porchid] = 0
+        }
+
+        for (const gig of Object.values(gigs)) {
+          if (!gig || gig.bandid === null || gig.porchid === null) {
+            continue
+          }
+          if (!bandIdsByPorch[gig.porchid]) {
+            bandIdsByPorch[gig.porchid] = new Set()
+            totalMinutesByPorch[gig.porchid] = 0
+          }
+
+          bandIdsByPorch[gig.porchid].add(gig.bandid)
+          totalMinutesByPorch[gig.porchid] += Number(gig.duration) || 0
+        }
+
+        let maxTotalMinutes = 0
+        for (const porchid in totalMinutesByPorch) {
+          bandCountByPorch[porchid] = bandIdsByPorch[porchid].size
+          maxTotalMinutes = Math.max(maxTotalMinutes, totalMinutesByPorch[porchid])
+        }
+
+        return {
+          bandCountByPorch,
+          totalMinutesByPorch,
+          maxTotalMinutes,
+        }
+      }
 
       L.maplibreGL({
         style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -610,23 +647,32 @@
         return hasUpcomingGig ? 'upcoming' : 'past'
       }
 
-      function markerStyleForState(state) {
+      function porchTotalMinutes(porchid) {
+        return porchStats.totalMinutesByPorch[porchid] || 0
+      }
+
+      function porchOpacityForMinutes(totalMinutes) {
+        if (porchStats.maxTotalMinutes <= 0) {
+          return 1
+        }
+
+        const minOpacity = 0.3
+        const normalized = totalMinutes / porchStats.maxTotalMinutes
+        return minOpacity + ((1 - minOpacity) * normalized)
+      }
+
+      function markerStyleForState(state, porchid) {
         const color = porchMarkerColors[state] || porchMarkerColors.noUpcoming
+        const opacity = porchOpacityForMinutes(porchTotalMinutes(porchid))
         return {
           color,
-          opacity: state === 'noUpcoming' ? 0.62 : 0.9,
+          opacity,
           size: state === 'nowPlaying' ? 16 : 14,
         }
       }
 
       function porchBandCount(porchid) {
-        const bandIds = new Set()
-        for (const gig of Object.values(gigs)) {
-          if (gig.bandid !== null && gig.porchid === porchid) {
-            bandIds.add(gig.bandid)
-          }
-        }
-        return bandIds.size
+        return porchStats.bandCountByPorch[porchid] || 0
       }
 
       function shapeForBandCount(count) {
@@ -638,7 +684,7 @@
         marker.setZIndexOffset(markerZIndexCounter)
       }
 
-      function updatePorchMarkerVisual(marker, state, bandCount) {
+      function updatePorchMarkerVisual(marker, porchid, state, bandCount) {
         const markerElement = marker.getElement()
         if (!markerElement) {
           return
@@ -649,7 +695,7 @@
           return
         }
 
-        const style = markerStyleForState(state)
+        const style = markerStyleForState(state, porchid)
         const shape = shapeForBandCount(bandCount)
         const extraBands = Math.max(0, bandCount - 1)
         const pillScale = Math.min(2.2, 1.2 + (extraBands * 0.22))
@@ -683,7 +729,7 @@
 
           // Adding marker to the map
           marker.addTo(map)
-          updatePorchMarkerVisual(marker, 'noUpcoming', porchBandCount(porchid))
+          updatePorchMarkerVisual(marker, porchid, 'noUpcoming', porchBandCount(porchid))
           markersByPorchId[porchid] = marker
         }
       }
@@ -723,7 +769,7 @@
           }
 
           const state = porchMarkerState(porchid, dateBounds)
-          updatePorchMarkerVisual(marker, state, porchBandCount(porchid))
+          updatePorchMarkerVisual(marker, porchid, state, porchBandCount(porchid))
           if (state === 'nowPlaying') {
             raiseMarker(marker)
           }
