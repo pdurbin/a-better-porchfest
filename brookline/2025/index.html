@@ -307,9 +307,13 @@
         const scheduledGigs = Object.values(gigs).filter(gig => gig.bandid !== null)
         const startMinutes = scheduledGigs.map(gigStartMinutes)
         const endMinutes = scheduledGigs.map(gigEndMinutes)
+        const officialMin = Math.min(...startMinutes)
+        const officialMax = Math.max(...endMinutes)
         return {
-          min: Math.min(...startMinutes),
-          max: Math.max(...endMinutes) + oneHourMinutes,
+          officialMin,
+          officialMax,
+          min: officialMin,
+          max: officialMax + oneHourMinutes,
         }
       }
 
@@ -369,7 +373,7 @@
         const end = Number(planningEndTimeInput.value)
 
         planningStartTimeValue.textContent = formatRoundedHourMinutes(min)
-        planningEndTimeValue.textContent = formatRoundedHourMinutes(max)
+        planningEndTimeValue.textContent = formatMinutesSinceMidnight(bounds.officialMax)
         planningMinTimeValue.textContent = formatMinutesSinceMidnight(start)
         planningMaxTimeValue.textContent = formatMinutesSinceMidnight(end)
 
